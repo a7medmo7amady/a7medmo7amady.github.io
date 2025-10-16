@@ -53,13 +53,13 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: rgb(114, 8, 152);
+    color: #7A00FF;
     background-color: rgba(255,255,255,0.04);
     border-radius: 8px;
 }
 
 nav ul li a.active {
-    color: rgb(114, 8, 152);
+    color: #7A00FF;
     font-weight: 600;
 }
 p{
