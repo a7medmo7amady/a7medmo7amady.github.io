@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile - Ahmad Muhammadi</title>
+</head>
+<body>
+  <header>
+    <h1>Edit Profile</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="./about.html">About</a></li>
+      <li><a href="./projects.html">Projects</a></li>
+      <li><a href="./skills.html">Skills</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="grid">
+    <h2>Update Your Information</h2>
+
+    <form class="edit-form">
+      <label>Full Name:</label>
+      <input type="text" name="fullname" required maxlength="50">
+
+      <label>Email:</label>
+      <input type="email" name="email" required>
+
+    
+      <label>Birth Date:</label>
+      <input type="date" required>
+
+      <label>Profile Picture:</label>
+      <input type="file" accept="image/*">
+
+      <label>Gender:</label>
+      <div>
+        <input type="radio" name="gender" value="male"> Male
+        <input type="radio" name="gender" value="female"> Female
+      </div>
+
+      <label>Programming Interests:</label>
+      <div>
+        <input type="checkbox" name="interest" value="C++"> C++
+        <input type="checkbox" name="interest" value="Python"> Python
+        <input type="checkbox" name="interest" value="Web"> Web Development
+      </div>
+
+      <label>Country:</label>
+      <select>
+        <option>Egypt</option>
+        <option>USA</option>
+        <option>Germany</option>
+        <option>Japan</option>
+      </select>
+
+      <label>Short Bio:</label>
+      <textarea rows="4" maxlength="300" placeholder="Write a short description about yourself..."></textarea>
+
+      <input type="submit" value="Save Changes">
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Ahmad Muhammadi. All rights reserved.</p>
+  </footer>
+</body>
+</html>

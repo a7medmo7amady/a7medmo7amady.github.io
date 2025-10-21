@@ -25,7 +25,6 @@
     <h2 class="main-h2">Welcome to My Portfolio</h2>  <br>
 <div class="intro-section">
      <img src="public/Me.jpeg" alt="Ahmad Muhammadi Profile Picture" class="profile-pic"> <br>
-    <!-- <div class="C1"> -->
         <p class="p2">
     
        
@@ -38,8 +37,29 @@
     </p>
     
 
-    <!-- </div> -->
 </div>
+<section class="recommendation-form">
+  <h3>Leave a Recommendation</h3>
+  <form action="#" method="post" enctype="multipart/form-data">
+    <label for="name">Your Name:</label><br>
+    <input type="text" id="name" name="name" required maxlength="50"><br><br>
+
+    <label for="message">Your Recommendation:</label><br>
+    <textarea id="message" name="message" rows="4" required maxlength="200"></textarea><br><br>
+
+    <label for="image">Upload Image (optional):</label><br>
+    <input type="file" id="image" name="image" accept="image/*"><br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+</section>
+
+<section class="edit-profile-link">
+  <a href="./src/profile.html">
+    <button class="EditB">Edit Profile</button>
+  </a>
+</section>
+
     <footer>
         <p>&copy; 2024 Ahmad Muhammadi. All rights reserved.</p>
     </footer>
