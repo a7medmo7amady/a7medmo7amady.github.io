@@ -1,68 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmad Muhammadi</title>
-</head>
-<body>
-  
-    <header>
-        <h1>Ahmad Muhammadi</h1>
-    </header>
- 
-    <nav>
-        <ul>
-            <li><a href="./src/about.html">About</a></li>
-            <li><a href="./src/projects.html">Projects</a></li>
-            <li><a href="./src/skills.html">Skills</a></li>
-            <li><a href="./src/contact.html">Contact</a></li>
-            <li><button id="theme-toggle">White Mode</button></li>
-        </ul>
-    </nav>
-<section class ="grid">
-    <h2 class="main-h2">Welcome to My Portfolio</h2>  <br>
-<div class="intro-section">
-     <img src="public/Me.jpeg" alt="Ahmad Muhammadi Profile Picture" class="profile-pic"> <br>
-        <p class="p2">
-    
-       
-        Hello! I'm Ahmad Muhammadi, a Software engineer.<br>
-        
-           
-
-        Feel Free to explore my portfolio to learn more about my projects, skills, and experiences. <br>
-   
-    </p>
-    
-
-</div>
-<section class="recommendation-form">
-  <h3>Leave a Recommendation</h3>
-  <form action="#" method="post" enctype="multipart/form-data">
-    <label for="name">Your Name:</label><br>
-    <input type="text" id="name" name="name" required maxlength="50"><br><br>
-
-    <label for="message">Your Recommendation:</label><br>
-    <textarea id="message" name="message" rows="4" required maxlength="200"></textarea><br><br>
-
-    <label for="image">Upload Image (optional):</label><br>
-    <input type="file" id="image" name="image" accept="image/*"><br><br>
-
-    <input type="submit" value="Submit">
-  </form>
-</section>
-
-<section class="edit-profile-link">
-  <a href="./src/profile.html">
-    <button class="EditB">Edit Profile</button>
-  </a>
-</section>
-
-    <footer>
-        <p>&copy; 2024 Ahmad Muhammadi. All rights reserved.</p>
-    </footer>
-</section>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>portfolio</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
