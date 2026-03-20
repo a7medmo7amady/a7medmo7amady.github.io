@@ -1,0 +1,22 @@
+<div class="section page-enter">
+  <h1 class="section-title reveal" #reveal>About <span class="gradient-text">Me</span></h1>
+  <p class="section-sub reveal delay-1" #reveal>A little bit about who I am</p>
+
+  <div class="bio-card card reveal delay-2" #reveal>
+    <h2>Who I Am</h2>
+    <p>
+      <!-- Add your bio here -->
+      I'm Ahmad Muhammadi, a Computer Science student who loves building software.
+      I enjoy working close to the metal as much as I enjoy building for the web.
+    </p>
+  </div>
+
+  <div class="cards">
+    @for (card of cards; track card.title; let i = $index) {
+      <div class="card reveal" #reveal [style.transition-delay]="(i * 0.1 + 0.3) + 's'">
+        <h3>{{ card.title }}</h3>
+        <p>{{ card.text }}</p>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="section page-enter">
+  <div class="hero">
+    <div class="hero-text">
+      <p class="greeting reveal" #reveal>Hi, I'm</p>
+      <h1 class="reveal delay-1" #reveal>
+        Ahmad<br><span class="gradient-text">Muhammadi</span>
+      </h1>
+      <p class="subtitle reveal delay-2" #reveal>Software Engineer</p>
+      <p class="bio reveal delay-3" #reveal>
+      
+        I build things with code — مبرمج هندسيات.
+      </p>
+      <div class="cta reveal delay-4" #reveal>
+        <a routerLink="/projects" class="btn primary">View My Work</a>
+        <a routerLink="/contact" class="btn outline">Get In Touch</a>
+      </div>
+    </div>
+
+    <div class="hero-image reveal delay-2" #reveal>
+      <div class="avatar-ring">
+        <img src="/Me.jpeg" alt="Ahmad Muhammadi" />
+      </div>
+    </div>
+  </div>
+
+  <div class="cards">
+    @for (card of cards; track card.title; let i = $index) {
+      <div class="card reveal" #reveal [style.transition-delay]="(i * 0.1 + 0.2) + 's'">
+        <h3>{{ card.title }}</h3>
+        <p>{{ card.text }}</p>
+      </div>
+    }
+  </div>
+</div>
