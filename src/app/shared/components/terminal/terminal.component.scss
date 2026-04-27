@@ -27,19 +27,12 @@
   padding: 0.2rem 0.65rem;
   border-radius: 20px;
   cursor: pointer;
-  transition: background 0.12s, border-color 0.12s;
+  transition: background 0.12s, border-color 0.12s, transform 0.1s;
   letter-spacing: 0.03em;
   user-select: none;
 
-  &:hover {
-    background: rgba(50, 215, 75, 0.16);
-    border-color: var(--accent);
-  }
-
-  &:active {
-    background: rgba(50, 215, 75, 0.24);
-    transform: scale(0.97);
-  }
+  &:hover  { background: rgba(50, 215, 75, 0.15); border-color: var(--accent); }
+  &:active { transform: scale(0.96); }
 }
 
 /* ── Terminal body ── */
@@ -51,21 +44,16 @@
   overflow-y: auto;
   cursor: text;
   font-family: 'Space Mono', monospace;
+  position: relative; /* needed for ghost-input absolute child */
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.07) transparent;
 
   &::-webkit-scrollbar       { width: 4px; }
   &::-webkit-scrollbar-track { background: transparent; }
-  &::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 2px; }
+  &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
 }
 
-/* ── Active border highlight ── */
-.mac-term-wrap.active {
-  outline: 1px solid rgba(50, 215, 75, 0.2);
-  outline-offset: -1px;
-}
-
-/* ── Lines ── */
+/* ── History lines ── */
 .line {
   display: flex;
   align-items: baseline;
@@ -106,7 +94,7 @@
 /* ── Cursor ── */
 .cursor {
   display: inline-block;
-  width: 0.5em;
+  width: 0.52em;
   background: var(--accent);
   opacity: 0;
   vertical-align: text-bottom;
@@ -119,7 +107,35 @@
   animation: blink-cur 1.1s step-end infinite;
 }
 
+.cursor.typing {
+  animation: none;
+  opacity: 0.85;
+}
+
 @keyframes blink-cur {
   0%, 100% { opacity: 0.8; }
   50%       { opacity: 0; }
+}
+
+/* ── Ghost input ──
+   Position: fixed + far off-screen. NOT display:none or visibility:hidden
+   (those break focus). NOT z-index:-1 (can break focus in Firefox/Safari).
+   font-size:16px prevents iOS Safari from zooming on focus.
+─────────────────────────────────────────────────────────────── */
+.ghost-input {
+  position: fixed;
+  top:    -500px;
+  left:   -500px;
+  width:  1px;
+  height: 1px;
+  opacity: 0;
+  border:  none;
+  outline: none;
+  padding: 0;
+  margin:  0;
+  font-size:        16px;
+  background:       transparent;
+  color:            transparent;
+  caret-color:      transparent;
+  pointer-events:   none;
 }

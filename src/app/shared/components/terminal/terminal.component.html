@@ -1,4 +1,4 @@
-<div class="mac-term-wrap" [class.active]="isActive">
+<div class="mac-term-wrap">
 
   <!-- ① macOS title bar -->
   <div class="mac-term-bar">
@@ -8,18 +8,18 @@
     <span class="mac-term-title">ahmad — {{ title }} — bash</span>
   </div>
 
-  <!-- ② Suggestion pills — TOP, right below the title bar -->
+  <!-- ② Suggestion pills — TOP, below the title bar -->
   @if (suggestions.length) {
     <div class="pill-bar">
       <span class="pill-label">try →</span>
       @for (s of suggestions; track s) {
-        <button class="pill" (click)="autoType(s); $event.stopPropagation()">{{ s }}</button>
+        <button class="pill" (click)="autoType(s); $event.stopPropagation(); focus()">{{ s }}</button>
       }
     </div>
   }
 
-  <!-- ③ Terminal body — history grows down, active prompt at bottom -->
-  <div class="term-body" #termBody>
+  <!-- ③ Terminal body -->
+  <div class="term-body" #termBody (click)="focus()">
 
     @for (entry of history; track $index) {
       @if (entry.type === 'input') {
@@ -30,19 +30,38 @@
       } @else {
         <div class="out-block" [class.err]="entry.isError">
           @for (line of entry.lines!; track $index) {
-            <div class="out-line">{{ line || ' ' }}</div>
+            <div class="out-line">{{ line || '&nbsp;' }}</div>
           }
         </div>
       }
     }
 
-    <!-- Active prompt always at the bottom -->
+    <!-- Active prompt line -->
     <div class="line active-line">
       <span class="prompt">{{ prompt }}</span>
       <span class="cmd-text">&nbsp;{{ currentInput }}</span><span
-        class="cursor" [class.blink]="isActive && !isTyping">█</span>
+        class="cursor blink" [class.typing]="isTyping">█</span>
     </div>
 
+    <!--
+      Ghost input: positioned off-screen so the browser treats it as a real
+      focusable text field. The `input` event gives us perfectly correct
+      characters (handles Backspace, paste, IME, all keyboard layouts).
+      Special keys are handled in `keydown`.
+    -->
+    <input
+      #ghostInput
+      type="text"
+      class="ghost-input"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      aria-hidden="true"
+      tabindex="-1"
+      (input)="onNativeInput($event)"
+      (keydown)="onKeydown($event)"
+    />
   </div>
 
 </div>

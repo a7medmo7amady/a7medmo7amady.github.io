@@ -1,6 +1,6 @@
 import {
   Component, AfterViewInit, ElementRef, ViewChild,
-  Input, HostListener, OnDestroy, NgZone
+  Input, HostListener, OnDestroy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -25,111 +25,122 @@ export class TerminalComponent implements AfterViewInit, OnDestroy {
   @Input() suggestions: string[] = [];
   @Input() processCommand!: (cmd: string) => { lines: string[]; isError?: boolean } | null;
 
-  @ViewChild('termBody') bodyRef!: ElementRef<HTMLDivElement>;
+  @ViewChild('ghostInput') ghostRef!: ElementRef<HTMLInputElement>;
+  @ViewChild('termBody')   bodyRef!:  ElementRef<HTMLDivElement>;
 
   history: TermEntry[] = [];
   currentInput = '';
   isTyping = false;
-  isActive = false;
   cmdHistory: string[] = [];
   historyIdx = -1;
 
   private autoTypeTimer: any;
 
-  constructor(private zone: NgZone) {}
-
   ngAfterViewInit() {
-    // Activate and start default command after a short delay
-    setTimeout(() => {
-      this.isActive = true;
-      if (this.defaultCommand) {
-        this.autoType(this.defaultCommand);
-      }
-    }, 200);
+    if (this.defaultCommand) {
+      setTimeout(() => this.autoType(this.defaultCommand), 250);
+    } else {
+      setTimeout(() => this.focus(), 100);
+    }
   }
 
   ngOnDestroy() {
     clearTimeout(this.autoTypeTimer);
   }
 
-  // ── Activate this terminal when clicked ──
-  @HostListener('click', ['$event'])
-  onTerminalClick(e: MouseEvent) {
-    this.isActive = true;
-    e.stopPropagation();
+  // Focus the hidden input — called on any click inside the terminal
+  focus() {
+    this.ghostRef?.nativeElement.focus();
   }
 
-  // ── Deactivate when anything outside is clicked ──
-  @HostListener('document:click')
-  onDocumentClick() {
-    this.isActive = false;
+  @HostListener('click')
+  onHostClick() { this.focus(); }
+
+  // ── All CHARACTER input (typing, paste, backspace, IME) ──
+  // Let the browser handle the native input event — it's always correct
+  onNativeInput(e: Event) {
+    const ghost = e.target as HTMLInputElement;
+    if (this.isTyping) {
+      // Block user input while autoTyping
+      ghost.value = '';
+      return;
+    }
+    this.currentInput = ghost.value;
   }
 
-  // ── All keyboard input goes through document ──
-  @HostListener('document:keydown', ['$event'])
-  onDocumentKeydown(e: KeyboardEvent) {
-    if (!this.isActive) return;
-    if (this.isTyping) { e.preventDefault(); return; }
+  // ── Special keys only (Enter, arrows, Tab) ──
+  onKeydown(e: KeyboardEvent) {
+    const ghost = this.ghostRef?.nativeElement;
+
+    if (this.isTyping) {
+      if (e.key !== 'Escape') e.preventDefault();
+      return;
+    }
 
     switch (e.key) {
-      case 'Enter':
+      case 'Enter': {
         e.preventDefault();
-        this.run(this.currentInput);
+        const toRun = this.currentInput;
+        this.currentInput = '';
+        if (ghost) ghost.value = '';
+        this.run(toRun);
         break;
-
-      case 'Backspace':
-        e.preventDefault();
-        this.currentInput = this.currentInput.slice(0, -1);
-        break;
-
-      case 'Tab':
+      }
+      case 'Tab': {
         e.preventDefault();
         this.tabComplete();
+        if (ghost) ghost.value = this.currentInput;
         break;
-
-      case 'ArrowUp':
+      }
+      case 'ArrowUp': {
         e.preventDefault();
         if (this.historyIdx < this.cmdHistory.length - 1)
           this.currentInput = this.cmdHistory[++this.historyIdx];
+        if (ghost) ghost.value = this.currentInput;
         break;
-
-      case 'ArrowDown':
+      }
+      case 'ArrowDown': {
         e.preventDefault();
-        this.historyIdx > 0
-          ? (this.currentInput = this.cmdHistory[--this.historyIdx])
-          : (this.historyIdx = -1, this.currentInput = '');
+        if (this.historyIdx > 0) {
+          this.currentInput = this.cmdHistory[--this.historyIdx];
+        } else {
+          this.historyIdx = -1;
+          this.currentInput = '';
+        }
+        if (ghost) ghost.value = this.currentInput;
         break;
-
-      case 'l':
+      }
+      case 'l': {
         if (e.ctrlKey) { e.preventDefault(); this.history = []; }
         break;
-
-      default:
-        if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey)
-          this.currentInput += e.key;
+      }
+      // All other keys (including Backspace, Delete) fall through to
+      // the native input, then onNativeInput updates currentInput
     }
   }
 
-  // Called by pill buttons — activates this terminal then types
+  // Called by pill buttons — activates and auto-types
   autoType(cmd: string) {
-    this.isActive = true;
     if (this.isTyping) return;
     this.isTyping = true;
     this.currentInput = '';
-    let i = 0;
+    const ghost = this.ghostRef?.nativeElement;
+    if (ghost) ghost.value = '';
 
+    let i = 0;
     const tick = () => {
       if (i < cmd.length) {
         this.currentInput += cmd[i++];
-        this.autoTypeTimer = setTimeout(tick, 30);
+        this.autoTypeTimer = setTimeout(tick, 32);
       } else {
         this.autoTypeTimer = setTimeout(() => {
           this.isTyping = false;
+          const g = this.ghostRef?.nativeElement;
+          if (g) { g.value = ''; g.focus(); }
           this.run(cmd);
-        }, 180);
+        }, 160);
       }
     };
-
     tick();
   }
 
@@ -158,10 +169,10 @@ export class TerminalComponent implements AfterViewInit, OnDestroy {
   }
 
   private tabComplete() {
-    const partial = this.currentInput.trim();
+    const partial = this.currentInput.trim().toLowerCase();
     if (!partial) return;
     const match = this.suggestions.find(
-      s => s.toLowerCase().startsWith(partial.toLowerCase()) && s !== partial
+      s => s.toLowerCase().startsWith(partial) && s.toLowerCase() !== partial
     );
     if (match) this.currentInput = match;
   }
