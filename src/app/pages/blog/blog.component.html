@@ -1,17 +1,17 @@
 <div class="section page-enter">
   <div class="page-hello"><span class="ph-prompt">&gt;</span><span class="ph-text">hello, here's what I think</span><span class="ph-cursor"></span></div>
 
-  <p class="eyebrow">Writing</p>
-  <h1 class="section-title">Blog</h1>
-  <p class="section-sub">Interactive terminal — type or click a suggestion</p>
+  <p class="eyebrow reveal" #reveal>Writing</p>
+  <h1 class="section-title reveal delay-1" #reveal>Blog</h1>
+  <p class="section-sub reveal delay-2" #reveal>Interactive terminal — type or click a suggestion</p>
 
-  <div class="terminal-wrap" (click)="focus()">
+  <div class="mac-term-wrap interactive-term reveal delay-3" #reveal (click)="focus()">
 
-    <div class="term-bar">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot grn"></span>
-      <span class="term-title">ahmad — ~/blog — bash</span>
+    <div class="mac-term-bar">
+      <span class="mac-dot red"></span>
+      <span class="mac-dot yellow"></span>
+      <span class="mac-dot grn"></span>
+      <span class="mac-term-title">ahmad — ~/blog — bash</span>
     </div>
 
     <div class="term-body" #termBody>

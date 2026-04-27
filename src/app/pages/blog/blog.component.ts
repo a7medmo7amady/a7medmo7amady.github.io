@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, QueryList, ViewChildren } from '@angular/core';
 
 interface Entry {
   type: 'input' | 'output';
@@ -16,6 +16,7 @@ interface Entry {
 export class BlogComponent implements AfterViewInit {
   @ViewChild('termInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('termBody')  bodyRef!:  ElementRef<HTMLDivElement>;
+  @ViewChildren('reveal') revealEls!: QueryList<ElementRef>;
 
   history: Entry[] = [];
   currentInput = '';
@@ -88,6 +89,12 @@ export class BlogComponent implements AfterViewInit {
   };
 
   ngAfterViewInit() {
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+      { threshold: 0.15 }
+    );
+    this.revealEls.forEach((el: ElementRef) => observer.observe(el.nativeElement));
+
     this.pushOutput([
       "Ahmad's blog terminal — type 'help' for available commands.",
     ]);
