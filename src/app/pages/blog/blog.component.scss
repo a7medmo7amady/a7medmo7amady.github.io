@@ -1,59 +1,80 @@
-$term-bg: #1a1a1a;
+$term-bg:    #1a1a1a;
 $term-green: #4afe82;
 $term-white: #f0f0f0;
-$term-dim: #8b9a8b;
+$term-dim:   #6b6b6b;
+$term-red:   #ff6b6b;
 
-.terminal-wrap {
-  border: 1px solid #333;
-  border-radius: 6px;
-  overflow: hidden;
-  font-family: 'Space Mono', monospace;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+/* Section bg override */
+:host {
+  display: block;
+  background: #8b8c89;
+  min-height: 100vh;
 }
 
+/* Override .section padding since we're full-bleed */
+.section {
+  background: transparent;
+}
+
+.terminal-wrap {
+  border: 1px solid #444;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: 'Space Mono', monospace;
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.55);
+  cursor: text;
+}
+
+/* ── Title bar ── */
 .term-bar {
-  background: #2d2d2d;
-  padding: 0.6rem 1rem;
+  background: #3a3a3a;
+  padding: 0.65rem 1rem;
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #555;
+  user-select: none;
 }
 
 .dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
+  flex-shrink: 0;
   &.red    { background: #ff5f57; }
   &.yellow { background: #febc2e; }
-  &.green  { background: #28c840; }
+  &.grn    { background: #28c840; }
 }
 
 .term-title {
-  margin-left: 0.75rem;
-  font-size: 0.65rem;
-  color: #888;
+  margin-left: 0.6rem;
+  font-size: 0.62rem;
+  color: #999;
   letter-spacing: 0.05em;
 }
 
+/* ── Terminal body ── */
 .term-body {
   background: $term-bg;
-  padding: 1.25rem 1.5rem 1.5rem;
-  min-height: 300px;
+  padding: 1.25rem 1.5rem 1rem;
+  min-height: 340px;
+  max-height: 520px;
+  overflow-y: auto;
+  position: relative;
+
+  /* Hide scrollbar but keep scrolling */
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
 }
 
+/* ── Lines ── */
 .line {
   display: flex;
   align-items: baseline;
-  gap: 0;
-  margin-bottom: 0.2rem;
   font-size: 0.78rem;
   line-height: 1.6;
-}
-
-.clickable {
-  cursor: pointer;
-  &:hover .cmd { text-decoration: underline; }
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 .prompt {
@@ -62,64 +83,77 @@ $term-dim: #8b9a8b;
   user-select: none;
 }
 
-.cmd {
+.cmd-text {
   color: $term-white;
 }
 
-.chevron {
-  color: $term-dim;
-  margin-left: 0.5rem;
-  font-size: 0.7rem;
-}
-
-.output {
+.out {
   color: $term-green;
-  font-size: 0.72rem;
-  line-height: 1.7;
-  padding-left: 1rem;
-  opacity: 0.85;
-}
-
-.entry {
-  margin-bottom: 0.35rem;
-}
-
-.post-out {
-  background: #111;
-  border-left: 2px solid $term-green;
-  margin: 0.4rem 0 0.75rem 0;
-  padding: 0.75rem 1.25rem;
-  animation: slideIn 0.15s ease both;
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to   { opacity: 1; transform: none; }
-}
-
-.post-meta {
-  color: $term-green;
-  font-size: 0.72rem;
-  line-height: 1.5;
-  &.dim { opacity: 0.5; }
-}
-
-.spacer { height: 0.5rem; }
-
-.output-line {
-  color: $term-green;
-  font-size: 0.73rem;
-  line-height: 1.8;
+  font-size: 0.76rem;
+  line-height: 1.65;
   white-space: pre;
 }
 
+.err {
+  color: $term-red;
+  font-size: 0.76rem;
+  line-height: 1.65;
+}
+
+/* ── Cursor ── */
 .cursor {
   color: $term-green;
   animation: blink 1s step-end infinite;
-  margin-left: 0.25rem;
+  font-size: 0.78rem;
 }
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
+}
+
+/* ── Ghost input (invisible but captures keystrokes) ── */
+.ghost {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+/* ── Suggestion pills ── */
+.pill-bar {
+  background: #252525;
+  border-top: 1px solid #333;
+  padding: 0.6rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pill-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: $term-dim;
+  letter-spacing: 0.1em;
+  user-select: none;
+}
+
+.pill {
+  background: rgba(74, 254, 130, 0.08);
+  border: 1px solid rgba(74, 254, 130, 0.3);
+  color: $term-green;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  letter-spacing: 0.04em;
+
+  &:hover {
+    background: rgba(74, 254, 130, 0.18);
+    border-color: $term-green;
+  }
 }

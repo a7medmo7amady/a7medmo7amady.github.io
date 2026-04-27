@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+
+interface Entry {
+  type: 'input' | 'output';
+  text?: string;
+  lines?: string[];
+  isError?: boolean;
+}
 
 @Component({
   selector: 'app-blog',
@@ -6,93 +13,194 @@ import { Component } from '@angular/core';
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.scss'
 })
-export class BlogComponent {
-  active: number | null = null;
+export class BlogComponent implements AfterViewInit {
+  @ViewChild('termInput') inputRef!: ElementRef<HTMLInputElement>;
+  @ViewChild('termBody')  bodyRef!:  ElementRef<HTMLDivElement>;
 
-  toggle(i: number) {
-    this.active = this.active === i ? null : i;
-  }
+  history: Entry[] = [];
+  currentInput = '';
+  isTyping = false;
+  cmdHistory: string[] = [];
+  historyIdx = -1;
 
-  posts = [
-    {
-      cmd: 'cat building-http-server-in-c.md',
-      date: '2025-03-14',
-      title: 'Building an HTTP Server from Scratch in C',
+  suggestions = ['help', 'ls', 'whoami', 'cat adas.md', 'cat webserver.md', 'cat oss.md', 'cat go-vs-c.md', 'clear'];
+
+  private posts: Record<string, { title: string; date: string; lines: string[] }> = {
+    'adas.md': {
+      title: 'Lane Detection in ADAS: Canny Edges to Hough Lines',
+      date: '2025-05-02',
       lines: [
-        'Most programmers never touch raw sockets. They reach for Express,',
-        'Flask, or FastAPI and move on. I wanted to understand what actually',
-        'happens when a browser sends a GET request.',
+        'Implemented lane detection without any pre-trained model — classical CV only.',
         '',
-        'So I built one — a full HTTP/1.0 server in C using POSIX sockets,',
-        'fork() for concurrency, and zero external dependencies.',
+        'Pipeline:',
+        '  1. Grayscale → Gaussian blur    (reduce noise)',
+        '  2. Canny edge detection         (find gradients)',
+        '  3. Region-of-interest masking   (ignore sky)',
+        '  4. Hough transform              (detect lines from edges)',
+        '  5. Average + extrapolate        (draw final lanes)',
         '',
-        'Key things I learned:',
-        '  → bind() + listen() + accept() is the whole server loop',
-        '  → HTTP is just text over a socket — parse it yourself',
-        '  → fork() per request is naive but teaches process isolation',
+        'Key insight: most tuning work is in Canny thresholds.',
+        'Too low = noise everywhere. Too high = missed lane markings.',
+      ]
+    },
+    'webserver.md': {
+      title: 'Building an HTTP Server from Scratch in C',
+      date: '2025-03-14',
+      lines: [
+        'Most programmers never touch raw sockets. I wanted to understand',
+        'what actually happens when a browser sends a GET request.',
+        '',
+        '  → bind() + listen() + accept()  is the whole server loop',
+        '  → HTTP is just text over a TCP socket — parse it yourself',
+        '  → fork() per request teaches process isolation cleanly',
         '  → file descriptors are everything in Unix',
       ]
     },
-    {
-      cmd: 'cat adas-lane-detection-deep-dive.md',
-      date: '2025-05-02',
-      title: 'Lane Detection in ADAS: Canny Edges to Hough Lines',
-      lines: [
-        'For my ADAS project I had to implement lane detection without',
-        'using a pre-trained neural net — just classical CV.',
-        '',
-        'The pipeline:',
-        '  1. Grayscale → Gaussian blur (reduce noise)',
-        '  2. Canny edge detection (find gradients)',
-        '  3. Region of interest masking (ignore sky)',
-        '  4. Hough transform (detect lines from edges)',
-        '  5. Average + extrapolate to draw final lanes',
-        '',
-        'Surprising insight: most of the tuning work is in Canny thresholds.',
-        'Too low = noise everywhere. Too high = you miss lane markings.',
-        'There is no universal value — it depends on lighting conditions.',
-      ]
-    },
-    {
-      cmd: 'cat why-i-contribute-to-oss.md',
-      date: '2025-07-20',
+    'oss.md': {
       title: 'Why I Started Contributing to Open Source',
+      date: '2025-07-20',
       lines: [
-        'Reading code is underrated. For a year I just cloned repos and',
-        'read them — Go stdlib, Redis, SQLite. No PRs. Just reading.',
+        'For a year I just cloned repos and read them.',
+        'Go stdlib, Redis, SQLite. No PRs. Just reading.',
         '',
-        'Then I found a bug in a small CLI tool I was using. The fix was',
-        'three lines. I submitted a PR. It merged in two days.',
-        '',
-        'That was it. Three lines and suddenly I understood what open',
-        'source actually means — it\'s not about heroic contributions,',
-        'it\'s about a thousand tiny ones from people who actually use',
-        'the software.',
+        'Then I found a bug. The fix was three lines.',
+        'It merged in two days. That was it.',
         '',
         'Start small. Read more than you write. Show up consistently.',
       ]
     },
-    {
-      cmd: 'cat go-vs-c-systems-programming.md',
-      date: '2025-11-08',
+    'go-vs-c.md': {
       title: 'Go vs C for Systems Work: An Honest Take',
+      date: '2025-11-08',
       lines: [
-        'After writing both a web server in C and several tools in Go,',
-        'here is what I actually think:',
-        '',
         'C gives you:',
-        '  → Total control over memory layout',
-        '  → Predictable performance (no GC pauses)',
-        '  → Deep understanding of what the machine does',
+        '  → Total memory control + predictable performance (no GC)',
+        '  → Deep understanding of what the machine actually does',
         '',
         'Go gives you:',
-        '  → Goroutines (M:N scheduling is genuinely great)',
-        '  → Fast compile times and a good stdlib',
-        '  → Easy concurrency without the footguns',
+        '  → Goroutines — M:N scheduling is genuinely excellent',
+        '  → Fast compile + rich stdlib + safe concurrency',
         '',
         'For learning: write C. For shipping: reach for Go.',
-        'They are not competing — they teach different things.',
+        'They teach different things — not competing.',
       ]
-    },
-  ];
+    }
+  };
+
+  ngAfterViewInit() {
+    this.pushOutput([
+      "Ahmad's blog terminal — type 'help' for available commands.",
+    ]);
+    setTimeout(() => this.focus(), 120);
+  }
+
+  focus() {
+    this.inputRef?.nativeElement.focus();
+  }
+
+  onKeydown(e: KeyboardEvent) {
+    if (this.isTyping) { e.preventDefault(); return; }
+
+    switch (e.key) {
+      case 'Enter':
+        e.preventDefault();
+        this.run(this.currentInput);
+        break;
+      case 'Backspace':
+        e.preventDefault();
+        this.currentInput = this.currentInput.slice(0, -1);
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        if (this.historyIdx < this.cmdHistory.length - 1)
+          this.currentInput = this.cmdHistory[++this.historyIdx];
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        if (this.historyIdx > 0) this.currentInput = this.cmdHistory[--this.historyIdx];
+        else { this.historyIdx = -1; this.currentInput = ''; }
+        break;
+      default:
+        if (e.key.length === 1 && !e.ctrlKey && !e.metaKey)
+          this.currentInput += e.key;
+    }
+  }
+
+  autoType(cmd: string) {
+    if (this.isTyping) return;
+    this.isTyping = true;
+    this.currentInput = '';
+    let i = 0;
+    const tick = () => {
+      if (i < cmd.length) {
+        this.currentInput += cmd[i++];
+        setTimeout(tick, 55);
+      } else {
+        setTimeout(() => { this.isTyping = false; this.run(cmd); }, 320);
+      }
+    };
+    tick();
+  }
+
+  private run(cmd: string) {
+    const raw = cmd.trim();
+    this.history.push({ type: 'input', text: raw });
+    this.currentInput = '';
+    this.historyIdx = -1;
+    if (raw) {
+      this.cmdHistory.unshift(raw);
+      const res = this.process(raw);
+      if (res) this.pushOutput(res.lines, res.isError);
+    }
+    setTimeout(() => this.scrollBottom(), 40);
+  }
+
+  private process(cmd: string): { lines: string[]; isError?: boolean } | null {
+    const [base, ...args] = cmd.trim().split(/\s+/);
+    switch (base) {
+      case 'help':
+        return { lines: [
+          '',
+          '  ls              list blog posts',
+          '  cat <file>      read a post',
+          '  whoami          about me',
+          '  date            current date/time',
+          '  clear           clear terminal',
+          '',
+        ]};
+      case 'ls':
+        return { lines: ['', ...Object.keys(this.posts).map(f => `  ${f}`), ''] };
+      case 'whoami':
+        return { lines: [
+          '',
+          '  Ahmad Muhammadi',
+          '  CS student · systems programmer · OSS contributor',
+          '  github.com/a7medmo7amady',
+          '',
+        ]};
+      case 'date':
+        return { lines: ['', '  ' + new Date().toUTCString(), ''] };
+      case 'clear':
+        this.history = [];
+        return null;
+      case 'cat': {
+        const file = args[0];
+        if (!file) return { lines: ['cat: missing operand'], isError: true };
+        const post = this.posts[file];
+        if (!post) return { lines: [`cat: ${file}: No such file or directory`], isError: true };
+        return { lines: ['', `  # ${post.title}`, `  # ${post.date}`, '', ...post.lines.map(l => l ? '  ' + l : ''), ''] };
+      }
+      default:
+        return { lines: [`  ${base}: command not found`], isError: true };
+    }
+  }
+
+  private pushOutput(lines: string[], isError = false) {
+    this.history.push({ type: 'output', lines, isError });
+  }
+
+  private scrollBottom() {
+    const el = this.bodyRef?.nativeElement;
+    if (el) el.scrollTop = el.scrollHeight;
+  }
 }
