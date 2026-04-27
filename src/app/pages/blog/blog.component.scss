@@ -1,12 +1,11 @@
-/* macOS Terminal Dark Theme */
+/* Blog interactive terminal */
 
-$term-body-bg: rgba(30, 30, 30, 0.95);
-$term-green:   #39d353;   /* bright green */
-$term-bright:  #e2e2f0;   /* output text */
-$term-text:    #e2e2f0;   /* input text */
-$term-dim:     #888888;
+$term-green:   #32d74b;
+$term-bright:  #f0f0f4;
+$term-text:    #f0f0f4;
+$term-dim:     #8e8e9a;
 $term-err:     #ff5f57;
-$term-cursor:  #39d353;
+$term-cursor:  #32d74b;
 
 .interactive-term {
   cursor: text;
@@ -15,7 +14,7 @@ $term-cursor:  #39d353;
 /* ── Body ── */
 .term-body {
   background: transparent;
-  padding: 1.25rem 1.5rem 1rem;
+  padding: 1.5rem 1.75rem 1rem;
   min-height: 340px;
   max-height: 520px;
   overflow-y: auto;
@@ -28,8 +27,8 @@ $term-cursor:  #39d353;
 .line {
   display: flex;
   align-items: baseline;
-  font-size: 0.78rem;
-  line-height: 1.6;
+  font-size: 0.82rem;
+  line-height: 1.7;
   white-space: pre-wrap;
   word-break: break-all;
 }
@@ -47,22 +46,22 @@ $term-cursor:  #39d353;
 
 .out {
   color: $term-bright;
-  font-size: 0.76rem;
-  line-height: 1.65;
+  font-size: 0.8rem;
+  line-height: 1.7;
   white-space: pre;
 }
 
 .err {
   color: $term-err;
-  font-size: 0.76rem;
-  line-height: 1.65;
+  font-size: 0.8rem;
+  line-height: 1.7;
 }
 
 /* ── Cursor ── */
 .cursor {
   color: $term-cursor;
   animation: blink 1s step-end infinite;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
 }
 
 @keyframes blink {
@@ -81,37 +80,37 @@ $term-cursor:  #39d353;
 
 /* ── Suggestion pills ── */
 .pill-bar {
-  background: #1e1e1e;
-  border-top: 1px solid #333;
-  padding: 0.6rem 1rem;
+  background: rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 0.75rem 1.25rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
 }
 
 .pill-label {
   font-family: 'Space Mono', monospace;
-  font-size: 0.6rem;
-  color: #666;
-  letter-spacing: 0.1em;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
   user-select: none;
 }
 
 .pill {
-  background: rgba(26, 92, 26, 0.15);
-  border: 1px solid rgba(26, 92, 26, 0.4);
-  color: #4afe82;
+  background: rgba(50, 215, 75, 0.1);
+  border: 1px solid rgba(50, 215, 75, 0.25);
+  color: $term-green;
   font-family: 'Space Mono', monospace;
-  font-size: 0.62rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: 2px;
+  font-size: 0.68rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 
   &:hover {
-    background: rgba(74, 254, 130, 0.18);
-    border-color: #4afe82;
+    background: rgba(50, 215, 75, 0.2);
+    border-color: $term-green;
   }
 }

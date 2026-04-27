@@ -1,13 +1,11 @@
-
-
 .bio {
-  max-width: 560px;
+  max-width: 600px;
   margin-bottom: 2rem;
 
   p {
-    color: #1a1a1a;
-    font-size: 0.8rem;
-    line-height: 1.9;
+    color: var(--muted);
+    font-size: 0.93rem;
+    line-height: 1.85;
     margin-bottom: 1rem;
     &:last-child { margin-bottom: 0; }
   }
@@ -16,31 +14,35 @@
 .facts {
   display: flex;
   flex-direction: column;
-  border: 1px solid #4a4a4a;
-  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   overflow: hidden;
+  max-width: 380px;
 }
 
 .fact {
   display: flex;
   align-items: baseline;
   gap: 1.5rem;
-  padding: 0.85rem 1.25rem;
-  border-bottom: 1px solid #4a4a4a;
-  font-size: 0.75rem;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
 
   &:last-child { border-bottom: none; }
 
   .label {
     color: var(--accent);
-    font-family: 'Syne', sans-serif;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
     font-weight: 700;
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     flex-shrink: 0;
-    width: 60px;
+    width: 55px;
   }
 
-  span:last-child { color: #1a1a1a; }
+  span:last-child {
+    color: var(--text);
+    opacity: 0.85;
+  }
 }
