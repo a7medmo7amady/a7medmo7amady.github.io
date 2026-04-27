@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #0a0a0f;
+  --bg: #595959;
   --surface: #111118;
   --border: #1e1e2e;
   --text: #e2e2f0;
@@ -184,4 +184,45 @@ a { color: inherit; text-decoration: none; }
 @keyframes blink-block {
   0%, 100% { opacity: 0.7; }
   50%       { opacity: 0; }
+}
+
+/* ── macOS Terminal Window Frame (shared across all pages) ── */
+.mac-term-wrap {
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: 'Space Mono', monospace;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.5);
+}
+
+.mac-term-bar {
+  background: #2d2d2d;
+  padding: 0.65rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-bottom: 1px solid #444;
+  user-select: none;
+}
+
+.mac-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  &.red    { background: #ff5f57; }
+  &.yellow { background: #febc2e; }
+  &.grn    { background: #28c840; }
+}
+
+.mac-term-title {
+  margin-left: 0.6rem;
+  font-size: 0.62rem;
+  color: #888;
+  letter-spacing: 0.05em;
+}
+
+.mac-term-body {
+  background: #7f7f7f;
+  padding: 2rem;
 }

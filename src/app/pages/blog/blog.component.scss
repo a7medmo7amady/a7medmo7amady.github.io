@@ -1,7 +1,7 @@
 /* Terminal body is the gray (#8b8c89). Page bg stays the global dark so the
    terminal pops out — gray is LIGHTER than the surrounding dark page. */
 
-$term-body-bg: #8b8c89;
+$term-body-bg: #7f7f7f;
 $term-green:   #1a5c1a;   /* dark green — readable on gray bg */
 $term-bright:  #005f00;   /* slightly brighter for output */
 $term-text:    #111111;   /* near-black input text */

@@ -5,25 +5,35 @@
   <h1 class="section-title reveal delay-1" #reveal>Projects</h1>
   <p class="section-sub reveal delay-2" #reveal>Things I've shipped</p>
 
-  <div class="projects-grid">
-    @for (project of projects; track project.title; let i = $index) {
-      <div class="project-card card reveal" #reveal [style.transition-delay]="(i * 0.1 + 0.2) + 's'">
-        <div class="card-header">
-          <span class="step-num">{{ project.num }}</span>
-          <div class="card-title">{{ project.title }}</div>
-        </div>
-        <p class="card-body">{{ project.description }}</p>
-        <div class="tags">
-          @for (tag of project.tags; track tag) {
-            <span class="tag">{{ tag }}</span>
-          }
-        </div>
-        <div class="card-footer">
-          <a [href]="project.github" target="_blank" rel="noopener" class="gh-link">
-            → View on GitHub
-          </a>
-        </div>
+  <div class="mac-term-wrap">
+    <div class="mac-term-bar">
+      <span class="mac-dot red"></span>
+      <span class="mac-dot yellow"></span>
+      <span class="mac-dot grn"></span>
+      <span class="mac-term-title">ahmad — ~/projects — bash</span>
+    </div>
+    <div class="mac-term-body">
+      <div class="projects-grid">
+        @for (project of projects; track project.title; let i = $index) {
+          <div class="project-card card reveal" #reveal [style.transition-delay]="(i * 0.1 + 0.2) + 's'">
+            <div class="card-header">
+              <span class="step-num">{{ project.num }}</span>
+              <div class="card-title">{{ project.title }}</div>
+            </div>
+            <p class="card-body">{{ project.description }}</p>
+            <div class="tags">
+              @for (tag of project.tags; track tag) {
+                <span class="tag">{{ tag }}</span>
+              }
+            </div>
+            <div class="card-footer">
+              <a [href]="project.github" target="_blank" rel="noopener" class="gh-link">
+                → View on GitHub
+              </a>
+            </div>
+          </div>
+        }
       </div>
-    }
+    </div>
   </div>
 </div>

@@ -4,29 +4,39 @@
   <h1 class="section-title reveal" #reveal>Get In <span class="gradient-text">Touch</span></h1>
   <p class="section-sub reveal delay-1" #reveal>Feel free to reach out anytime</p>
 
-  <div class="contact-grid">
-    @for (c of contacts; track c.label; let i = $index) {
-      <a
-        [href]="c.href"
-        target="_blank"
-        rel="noopener"
-        class="contact-card card reveal"
-        #reveal
-        [style.transition-delay]="(i * 0.1 + 0.2) + 's'"
-        [style.--accent-color]="c.color"
-      >
-        <img class="c-icon" [src]="c.logo" [alt]="c.label" />
-        <div>
-          <h3>{{ c.label }}</h3>
-          <p>{{ c.value }}</p>
-        </div>
-      </a>
-    }
-  </div>
+  <div class="mac-term-wrap">
+    <div class="mac-term-bar">
+      <span class="mac-dot red"></span>
+      <span class="mac-dot yellow"></span>
+      <span class="mac-dot grn"></span>
+      <span class="mac-term-title">ahmad — ~/contact — bash</span>
+    </div>
+    <div class="mac-term-body">
+      <div class="contact-grid">
+        @for (c of contacts; track c.label; let i = $index) {
+          <a
+            [href]="c.href"
+            target="_blank"
+            rel="noopener"
+            class="contact-card card reveal"
+            #reveal
+            [style.transition-delay]="(i * 0.1 + 0.2) + 's'"
+            [style.--accent-color]="c.color"
+          >
+            <img class="c-icon" [src]="c.logo" [alt]="c.label" />
+            <div>
+              <h3>{{ c.label }}</h3>
+              <p>{{ c.value }}</p>
+            </div>
+          </a>
+        }
+      </div>
 
-  <div class="cta-card card reveal delay-4" #reveal>
-    <h2>Let's Work Together</h2>
-    <p>I'm open to freelance, internships, and interesting projects. Drop me a message!</p>
-    <a href="mailto:ahmedmohamady2005@gmail.com" class="btn primary">Send a Message</a>
+      <div class="cta-card card reveal delay-4" #reveal>
+        <h2>Let's Work Together</h2>
+        <p>I'm open to freelance, internships, and interesting projects. Drop me a message!</p>
+        <a href="mailto:ahmedmohamady2005@gmail.com" class="btn primary">Send a Message</a>
+      </div>
+    </div>
   </div>
 </div>

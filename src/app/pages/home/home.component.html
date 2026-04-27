@@ -25,12 +25,22 @@
     </div>
   </div>
 
-  <div class="cards">
-    @for (card of cards; track card.title; let i = $index) {
-      <div class="card reveal" #reveal [style.transition-delay]="(i * 0.1 + 0.2) + 's'">
-        <h3>{{ card.title }}</h3>
-        <p>{{ card.text }}</p>
+  <div class="mac-term-wrap">
+    <div class="mac-term-bar">
+      <span class="mac-dot red"></span>
+      <span class="mac-dot yellow"></span>
+      <span class="mac-dot grn"></span>
+      <span class="mac-term-title">ahmad — ~/ — bash</span>
+    </div>
+    <div class="mac-term-body">
+      <div class="cards">
+        @for (card of cards; track card.title; let i = $index) {
+          <div class="card reveal" #reveal [style.transition-delay]="(i * 0.1 + 0.2) + 's'">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.text }}</p>
+          </div>
+        }
       </div>
-    }
+    </div>
   </div>
 </div>
