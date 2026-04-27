@@ -5,52 +5,14 @@
   <h1 class="section-title reveal delay-1" #reveal>Blog</h1>
   <p class="section-sub reveal delay-2" #reveal>Interactive terminal — type or click a suggestion</p>
 
-  <div class="mac-term-wrap interactive-term reveal delay-3" #reveal (click)="focus()">
-
-    <div class="mac-term-bar">
-      <span class="mac-dot red"></span>
-      <span class="mac-dot yellow"></span>
-      <span class="mac-dot grn"></span>
-      <span class="mac-term-title">ahmad — ~/blog — bash</span>
-    </div>
-
-    <div class="term-body" #termBody>
-
-      @for (entry of history; track $index) {
-        @if (entry.type === 'input') {
-          <div class="line">
-            <span class="prompt">ahmad&#64;blog:~$</span>
-            <span class="cmd-text"> {{ entry.text }}</span>
-          </div>
-        } @else {
-          @for (line of entry.lines!; track $index) {
-            @if (entry.isError) {
-              <div class="err">{{ line }}</div>
-            } @else {
-              <div class="out">{{ line || '\u00a0' }}</div>
-            }
-          }
+  <div class="reveal delay-3" #reveal>
+    <app-terminal title="~/blog" defaultPrompt="ahmad@blog:~$" [processCommand]="processCommand.bind(this)">
+      <div class="pill-bar">
+        <span class="pill-label">try →</span>
+        @for (s of suggestions; track s) {
+          <button class="pill" (click)="autoType(s); $event.stopPropagation()">{{ s }}</button>
         }
-      }
-
-      <div class="line">
-        <span class="prompt">ahmad&#64;blog:~$</span>
-        <span class="cmd-text"> {{ currentInput }}</span><span class="cursor">█</span>
       </div>
-
-      <input #termInput class="ghost"
-             (keydown)="onKeydown($event)"
-             autocomplete="off"
-             spellcheck="false"
-             aria-label="terminal input" />
-    </div>
-
-    <div class="pill-bar">
-      <span class="pill-label">try →</span>
-      @for (s of suggestions; track s) {
-        <button class="pill" (click)="autoType(s); $event.stopPropagation()">{{ s }}</button>
-      }
-    </div>
-
+    </app-terminal>
   </div>
 </div>

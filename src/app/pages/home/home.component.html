@@ -25,18 +25,8 @@
     </div>
   </div>
 
-  <div class="mac-term-wrap reveal delay-5" #reveal>
-    <div class="mac-term-bar">
-      <span class="mac-dot red"></span>
-      <span class="mac-dot yellow"></span>
-      <span class="mac-dot grn"></span>
-      <span class="mac-term-title">ahmad — ~/ — bash</span>
-    </div>
-    <div class="mac-term-body">
-      <div class="cli-line">
-        <span class="cli-prompt">ahmad@portfolio:~$</span>
-        <span class="cli-cmd">./show_highlights.sh</span>
-      </div>
+  <div class="reveal delay-5" #reveal>
+    <app-terminal title="~" defaultCommand="./show_highlights.sh" [processCommand]="processCommand.bind(this)">
       <div class="cards">
         @for (card of cards; track card.title; let i = $index) {
           <div class="card reveal" #reveal [style.transition-delay]="(i * 0.1 + 0.2) + 's'">
@@ -45,6 +35,6 @@
           </div>
         }
       </div>
-    </div>
+    </app-terminal>
   </div>
 </div>

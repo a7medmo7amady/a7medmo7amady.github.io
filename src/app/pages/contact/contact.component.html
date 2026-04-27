@@ -5,18 +5,8 @@
   <h1 class="section-title reveal delay-1" #reveal>Get In <span class="gradient-text">Touch</span></h1>
   <p class="section-sub reveal delay-2" #reveal>Feel free to reach out anytime</p>
 
-  <div class="mac-term-wrap reveal delay-3" #reveal>
-    <div class="mac-term-bar">
-      <span class="mac-dot red"></span>
-      <span class="mac-dot yellow"></span>
-      <span class="mac-dot grn"></span>
-      <span class="mac-term-title">ahmad — ~/contact — bash</span>
-    </div>
-    <div class="mac-term-body">
-      <div class="cli-line">
-        <span class="cli-prompt">ahmad@portfolio:~$</span>
-        <span class="cli-cmd">cat contact_info.json</span>
-      </div>
+  <div class="reveal delay-3" #reveal>
+    <app-terminal title="~/contact" defaultCommand="cat contact_info.json">
       <div class="contact-grid">
         @for (c of contacts; track c.label; let i = $index) {
           <a
@@ -42,6 +32,6 @@
         <p>I'm open to freelance, internships, and interesting projects. Drop me a message!</p>
         <a href="mailto:ahmedmohamady2005@gmail.com" class="btn primary">Send a Message</a>
       </div>
-    </div>
+    </app-terminal>
   </div>
 </div>

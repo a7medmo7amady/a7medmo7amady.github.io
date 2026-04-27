@@ -2,8 +2,11 @@ import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@
 
 const D = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
 
+import { TerminalComponent } from '../../shared/components/terminal/terminal.component';
+
 @Component({
   selector: 'app-skills',
+  imports: [TerminalComponent],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss'
 })

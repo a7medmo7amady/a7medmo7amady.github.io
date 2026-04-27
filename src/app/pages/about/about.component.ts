@@ -1,7 +1,10 @@
 import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
 
+import { TerminalComponent } from '../../shared/components/terminal/terminal.component';
+
 @Component({
   selector: 'app-about',
+  imports: [TerminalComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss'
 })

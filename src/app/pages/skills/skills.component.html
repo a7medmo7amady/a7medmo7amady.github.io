@@ -5,18 +5,8 @@
   <h1 class="section-title reveal delay-1" #reveal>My <span class="gradient-text">Skills</span></h1>
   <p class="section-sub reveal delay-2" #reveal>Technologies I work with</p>
 
-  <div class="mac-term-wrap reveal delay-3" #reveal>
-    <div class="mac-term-bar">
-      <span class="mac-dot red"></span>
-      <span class="mac-dot yellow"></span>
-      <span class="mac-dot grn"></span>
-      <span class="mac-term-title">ahmad — ~/skills — bash</span>
-    </div>
-    <div class="mac-term-body">
-      <div class="cli-line">
-        <span class="cli-prompt">ahmad@portfolio:~$</span>
-        <span class="cli-cmd">./list_skills.sh</span>
-      </div>
+  <div class="reveal delay-3" #reveal>
+    <app-terminal title="~/skills" defaultCommand="./list_skills.sh">
       <div class="categories">
         @for (cat of categories; track cat.title; let i = $index) {
           <div class="category reveal" #reveal [style.transition-delay]="(i * 0.15 + 0.2) + 's'">
@@ -32,6 +22,6 @@
           </div>
         }
       </div>
-    </div>
+    </app-terminal>
   </div>
 </div>

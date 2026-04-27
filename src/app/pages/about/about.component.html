@@ -5,18 +5,8 @@
   <h1 class="section-title reveal delay-1" #reveal>About</h1>
   <p class="section-sub reveal delay-2" #reveal>Background and focus</p>
 
-  <div class="mac-term-wrap reveal delay-3" #reveal>
-    <div class="mac-term-bar">
-      <span class="mac-dot red"></span>
-      <span class="mac-dot yellow"></span>
-      <span class="mac-dot grn"></span>
-      <span class="mac-term-title">ahmad — ~/about — bash</span>
-    </div>
-    <div class="mac-term-body">
-      <div class="cli-line">
-        <span class="cli-prompt">ahmad@portfolio:~$</span>
-        <span class="cli-cmd">cat whoami.txt</span>
-      </div>
+  <div class="reveal delay-3" #reveal>
+    <app-terminal title="~/about" defaultCommand="cat whoami.txt">
       <div class="bio">
         <p>
           I'm Ahmad Muhammadi a Computer Science student.
@@ -31,6 +21,6 @@
         <div class="fact"><span class="label">Focus</span><span>Systems · Web </span></div>
         <div class="fact"><span class="label">Stack</span><span>C · Go · Java · JS/TS</span></div>
       </div>
-    </div>
+    </app-terminal>
   </div>
 </div>

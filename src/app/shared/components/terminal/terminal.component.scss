@@ -1,0 +1,93 @@
+.interactive-term {
+  position: relative;
+  cursor: text;
+  min-height: 300px;
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 3px;
+  }
+}
+
+.term-body {
+  background: transparent;
+  padding: 1.25rem 1.5rem 1rem;
+  color: var(--text);
+  font-family: 'Space Mono', monospace;
+}
+
+.line {
+  display: flex;
+  align-items: baseline;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.prompt {
+  color: var(--accent);
+  flex-shrink: 0;
+  font-weight: 700;
+  user-select: none;
+}
+
+.cmd-text {
+  color: var(--text);
+  margin-left: 0.4rem;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  background: currentColor;
+  opacity: 0.7;
+  vertical-align: text-bottom;
+  margin-left: 1px;
+
+  &.blink {
+    animation: blink-block 1.2s step-end infinite;
+  }
+}
+
+@keyframes blink-block {
+  0%, 100% { opacity: 0.7; }
+  50%       { opacity: 0; }
+}
+
+.out {
+  color: var(--text);
+  font-size: 0.76rem;
+  line-height: 1.65;
+  white-space: pre;
+  margin-top: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.err {
+  color: #ff5f57;
+}
+
+.ghost {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  z-index: -1;
+}
+
+.default-content-wrapper {
+  /* No special styles needed, just a container for projected content */
+}

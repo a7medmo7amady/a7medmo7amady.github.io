@@ -1,7 +1,10 @@
 import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
 
+import { TerminalComponent } from '../../shared/components/terminal/terminal.component';
+
 @Component({
   selector: 'app-contact',
+  imports: [TerminalComponent],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss'
 })
