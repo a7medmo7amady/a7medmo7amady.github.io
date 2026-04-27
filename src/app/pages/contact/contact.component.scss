@@ -13,29 +13,32 @@
   transition: border-color var(--transition), transform var(--transition);
 
   &:hover {
-    border-color: var(--accent-color, var(--accent));
-    transform: translateY(-4px);
+    border-color: rgba(57, 211, 83, 0.4);
+    transform: translateY(-2px);
 
-    .c-icon { transform: scale(1.15); }
+    .c-icon { transform: scale(1.1); }
   }
 
   .c-icon {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
     flex-shrink: 0;
     transition: transform var(--transition);
   }
 
   h3 {
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
     margin-bottom: 0.2rem;
+    letter-spacing: 0.05em;
   }
 
   p {
     color: var(--muted);
-    font-size: 0.85rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
   }
 }
 
@@ -44,14 +47,17 @@
   padding: 2.5rem;
 
   h2 {
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
     margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
   }
 
   p {
     color: var(--muted);
     margin-bottom: 1.5rem;
-    line-height: 1.7;
+    line-height: 1.8;
+    font-size: 0.78rem;
   }
 }

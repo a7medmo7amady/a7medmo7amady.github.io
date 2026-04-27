@@ -2,7 +2,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10, 10, 10, 0.85);
+  background: rgba(10, 10, 15, 0.9);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -11,16 +11,18 @@ nav {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 1.5rem;
-  height: 60px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .brand {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
   letter-spacing: -0.5px;
+  color: var(--text);
   span { color: var(--accent); }
 }
 
@@ -31,8 +33,9 @@ nav {
 
   a {
     color: var(--muted);
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     position: relative;
     transition: color var(--transition);
 
@@ -42,9 +45,8 @@ nav {
       bottom: -4px;
       left: 0;
       width: 0;
-      height: 2px;
+      height: 1px;
       background: var(--accent);
-      border-radius: 2px;
       transition: width var(--transition);
     }
 
@@ -66,10 +68,9 @@ nav {
 
   span {
     display: block;
-    width: 22px;
-    height: 2px;
+    width: 20px;
+    height: 1px;
     background: var(--text);
-    border-radius: 2px;
     transition: var(--transition);
   }
 }
@@ -85,8 +86,9 @@ nav {
 
   a {
     color: var(--muted);
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     transition: color var(--transition);
     &:hover, &.active { color: var(--text); }
   }

@@ -2,13 +2,16 @@
   margin-bottom: 2rem;
 
   h2 {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
     margin-bottom: 0.75rem;
     color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
-  p { color: var(--muted); line-height: 1.8; }
+  p { color: #9090b0; line-height: 1.8; font-size: 0.8rem; }
 }
 
 .cards {
@@ -16,17 +19,15 @@
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.25rem;
 
-  .icon {
-    font-size: 1.75rem;
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-
   h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
-  p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+  p { color: var(--muted); font-size: 0.73rem; line-height: 1.7; }
 }

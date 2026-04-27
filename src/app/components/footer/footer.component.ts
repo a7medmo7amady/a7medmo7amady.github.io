@@ -13,7 +13,9 @@ import { Component } from '@angular/core';
       padding: 1.5rem;
       border-top: 1px solid var(--border);
       color: var(--muted);
-      font-size: 0.85rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
   `]
 })
