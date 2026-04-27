@@ -1,4 +1,4 @@
-<div class="mac-term-wrap">
+<div class="mac-term-wrap" [class.active]="isActive">
 
   <!-- ① macOS title bar -->
   <div class="mac-term-bar">
@@ -8,7 +8,7 @@
     <span class="mac-term-title">ahmad — {{ title }} — bash</span>
   </div>
 
-  <!-- ② Suggestion pills — always at the TOP, right below the title bar -->
+  <!-- ② Suggestion pills — TOP, right below the title bar -->
   @if (suggestions.length) {
     <div class="pill-bar">
       <span class="pill-label">try →</span>
@@ -18,14 +18,14 @@
     </div>
   }
 
-  <!-- ③ Terminal body — history accumulates downward, prompt at bottom -->
-  <div class="term-body interactive-term" #termBody (click)="focus()">
+  <!-- ③ Terminal body — history grows down, active prompt at bottom -->
+  <div class="term-body" #termBody>
 
     @for (entry of history; track $index) {
       @if (entry.type === 'input') {
         <div class="line">
           <span class="prompt">{{ prompt }}</span>
-          <span class="cmd-text"> {{ entry.text }}</span>
+          <span class="cmd-text">&nbsp;{{ entry.text }}</span>
         </div>
       } @else {
         <div class="out-block" [class.err]="entry.isError">
@@ -36,17 +36,13 @@
       }
     }
 
-    <!-- Active input line always at the bottom -->
+    <!-- Active prompt always at the bottom -->
     <div class="line active-line">
       <span class="prompt">{{ prompt }}</span>
-      <span class="cmd-text"> {{ currentInput }}</span><span
-        class="cursor" [class.blink]="!isTyping">█</span>
+      <span class="cmd-text">&nbsp;{{ currentInput }}</span><span
+        class="cursor" [class.blink]="isActive && !isTyping">█</span>
     </div>
 
-    <input #termInput class="ghost"
-      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-      (keydown)="onKeydown($event)"
-      (blur)="onBlur()" />
   </div>
 
 </div>
