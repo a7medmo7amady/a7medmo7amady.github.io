@@ -1,4 +1,6 @@
 <div class="section page-enter">
+  <div class="page-hello"><span class="ph-prompt">&gt;</span><span class="ph-text">hello, here's what I think</span><span class="ph-cursor"></span></div>
+
   <p class="eyebrow">Writing</p>
   <h1 class="section-title">Blog</h1>
   <p class="section-sub">Interactive terminal — type or click a suggestion</p>
@@ -31,13 +33,11 @@
         }
       }
 
-      <!-- active input line -->
       <div class="line">
         <span class="prompt">ahmad&#64;blog:~$</span>
         <span class="cmd-text"> {{ currentInput }}</span><span class="cursor">█</span>
       </div>
 
-      <!-- ghost input captures real keyboard events -->
       <input #termInput class="ghost"
              (keydown)="onKeydown($event)"
              autocomplete="off"
