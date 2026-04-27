@@ -6,28 +6,12 @@
   <p class="section-sub reveal delay-2" #reveal>Things I've shipped</p>
 
   <div class="reveal delay-3" #reveal>
-    <app-terminal title="~/projects" defaultCommand="ls -l ./projects">
-      <div class="projects-grid">
-        @for (project of projects; track project.title; let i = $index) {
-          <div class="project-card card reveal" #reveal [style.transition-delay]="(i * 0.1 + 0.2) + 's'">
-            <div class="card-header">
-              <span class="step-num">{{ project.num }}</span>
-              <div class="card-title">{{ project.title }}</div>
-            </div>
-            <p class="card-body">{{ project.description }}</p>
-            <div class="tags">
-              @for (tag of project.tags; track tag) {
-                <span class="tag">{{ tag }}</span>
-              }
-            </div>
-            <div class="card-footer">
-              <a [href]="project.github" target="_blank" rel="noopener" class="gh-link">
-                → View on GitHub
-              </a>
-            </div>
-          </div>
-        }
-      </div>
-    </app-terminal>
+    <app-terminal
+      title="~/projects"
+      prompt="ahmad@projects:~$"
+      [defaultCommand]="defaultCommand"
+      [suggestions]="suggestions"
+      [processCommand]="processCommand.bind(this)"
+    />
   </div>
 </div>

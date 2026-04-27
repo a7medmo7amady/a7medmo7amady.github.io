@@ -6,21 +6,12 @@
   <p class="section-sub reveal delay-2" #reveal>Background and focus</p>
 
   <div class="reveal delay-3" #reveal>
-    <app-terminal title="~/about" defaultCommand="cat whoami.txt">
-      <div class="bio">
-        <p>
-          I'm Ahmad Muhammadi a Computer Science student.
-        </p>
-        <p>
-          Interested In systems programming, compilers, CP and open-source contribution.
-          I write C and Go for fun ship full-stack projects to learn everything else.
-        </p>
-      </div>
-
-      <div class="facts">
-        <div class="fact"><span class="label">Focus</span><span>Systems · Web </span></div>
-        <div class="fact"><span class="label">Stack</span><span>C · Go · Java · JS/TS</span></div>
-      </div>
-    </app-terminal>
+    <app-terminal
+      title="~/about"
+      prompt="ahmad@about:~$"
+      [defaultCommand]="defaultCommand"
+      [suggestions]="suggestions"
+      [processCommand]="processCommand.bind(this)"
+    />
   </div>
 </div>

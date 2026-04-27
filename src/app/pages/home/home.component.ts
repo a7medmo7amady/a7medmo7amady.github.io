@@ -11,79 +11,83 @@ import { TerminalComponent } from '../../shared/components/terminal/terminal.com
 export class HomeComponent implements AfterViewInit {
   @ViewChildren('reveal') revealEls!: QueryList<ElementRef>;
 
-  cards = [
-    { title: 'Background', text: 'Computer Science student with a passion for building things from scratch.' },
-    { title: 'Interests', text: 'Systems programming, web development, networking, and open-source.' },
-    { title: 'Goals', text: 'Becoming a versatile engineer who understands every layer of the stack.' },
-  ];
+  suggestions = ['neofetch', 'whoami', 'skills', 'links', 'clear'];
+  defaultCommand = 'neofetch';
 
   ngAfterViewInit() {
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    const obs = new IntersectionObserver(
+      es => es.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
       { threshold: 0.15 }
     );
-    this.revealEls.forEach(el => observer.observe(el.nativeElement));
+    this.revealEls.forEach(el => obs.observe(el.nativeElement));
   }
 
   processCommand(cmd: string): { lines: string[]; isError?: boolean } | null {
-    const base = cmd.trim().split(/\s+/)[0];
+    const [base, ...args] = cmd.trim().split(/\s+/);
     switch (base) {
       case 'help':
         return { lines: [
           '',
-          '  whoami     who I am',
+          '  neofetch   system info',
+          '  whoami     about me',
           '  skills     tech stack',
           '  links      social & contact',
-          '  neofetch   system info',
           '  clear      clear terminal',
           '',
         ]};
+
+      case 'neofetch':
+        return { lines: [
+          '',
+          "        .-.",
+          "       (o o)      ahmad@portfolio",
+          "       | O |      ──────────────────────",
+          "        `-'       OS:      macOS-inspired dark",
+          "       _|||_      Host:    Angular 19",
+          "      (_/ \\_)     Shell:   bash 5.2",
+          '                  Theme:   Terminal Green',
+          '                  Stack:   C · Go · TS · Java',
+          '                  Focus:   Systems + Web',
+          '                  Status:  Open to work',
+          '',
+        ]};
+
       case 'whoami':
         return { lines: [
           '',
           '  Ahmad Muhammadi',
-          '  Software Engineer · CS Student',
+          '  Software Engineer & CS Student',
           '',
-          '  I build things close to the metal and for the web —',
-          '  systems programming, networking, and full-stack.',
+          '  I build things close to the metal and for the web.',
+          '  Systems programming, networking, and full-stack dev.',
           '',
         ]};
+
       case 'skills':
         return { lines: [
           '',
-          '  Languages    C · Go · Java · TypeScript · Python',
-          '  Systems      POSIX · sockets · fork · mmap',
-          '  Web          Angular · Node · REST · SQL',
-          '  Tools        Git · Linux · Docker · Vim',
+          '  Languages   C · Go · Java · TypeScript · Python',
+          '  Systems     POSIX · Sockets · Fork · Memory mgmt',
+          '  Web         Angular · Node.js · REST · PostgreSQL',
+          '  Tools       Git · Linux · Docker · Vim',
           '',
         ]};
+
       case 'links':
         return { lines: [
           '',
-          '  GitHub    github.com/a7medmo7amady',
-          '  Email     ahmedmohamady2005@gmail.com',
-          '  Projects  /projects',
-          '  Blog      /blog',
+          '  GitHub    →  github.com/a7medmo7amady',
+          '  Email     →  ahmedmohamady2005@gmail.com',
+          '  Projects  →  /projects',
+          '  Blog      →  /blog',
           '',
         ]};
-      case 'neofetch':
-        return { lines: [
-          '',
-          '       .\'.',
-          '      / \\ \\      ahmad@portfolio',
-          '     /   \\ \\     ───────────────',
-          '    / /\\  \\ \\    OS: macOS-inspired dark',
-          '   / / /\\  \\ \\   Host: Angular 19',
-          '  /_/ /  \\  \\_\\  Shell: bash 5.2',
-          '  \\_\\/    \\/_/   Theme: Terminal Green',
-          '                 Stack: C · Go · TS · Java',
-          '                 Focus: Systems + Web',
-          '',
-        ]};
+
       case 'clear':
         return null;
+
       default:
-        return { lines: [`  ${base}: command not found. Try 'help'`], isError: true };
+        return { lines: [`  ${base}: command not found — try 'help'`], isError: true };
     }
   }
 }

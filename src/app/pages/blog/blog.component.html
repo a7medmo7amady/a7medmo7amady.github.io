@@ -3,16 +3,15 @@
 
   <p class="eyebrow reveal" #reveal>Writing</p>
   <h1 class="section-title reveal delay-1" #reveal>Blog</h1>
-  <p class="section-sub reveal delay-2" #reveal>Interactive terminal — type or click a suggestion</p>
+  <p class="section-sub reveal delay-2" #reveal>Type a command or click a suggestion above</p>
 
   <div class="reveal delay-3" #reveal>
-    <app-terminal title="~/blog" defaultPrompt="ahmad@blog:~$" [processCommand]="processCommand.bind(this)">
-      <div class="pill-bar">
-        <span class="pill-label">try →</span>
-        @for (s of suggestions; track s) {
-          <button class="pill" (click)="autoType(s); $event.stopPropagation()">{{ s }}</button>
-        }
-      </div>
-    </app-terminal>
+    <app-terminal
+      title="~/blog"
+      prompt="ahmad@blog:~$"
+      [defaultCommand]="defaultCommand"
+      [suggestions]="suggestions"
+      [processCommand]="processCommand.bind(this)"
+    />
   </div>
 </div>

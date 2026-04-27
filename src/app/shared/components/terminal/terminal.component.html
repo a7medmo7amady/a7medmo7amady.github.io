@@ -1,44 +1,52 @@
 <div class="mac-term-wrap">
+
+  <!-- ① macOS title bar -->
   <div class="mac-term-bar">
     <span class="mac-dot red"></span>
     <span class="mac-dot yellow"></span>
     <span class="mac-dot grn"></span>
     <span class="mac-term-title">ahmad — {{ title }} — bash</span>
   </div>
-  
-  <div class="mac-term-body term-body interactive-term" #termBody>
-    <!-- INTERACTIVE INPUT AT TOP -->
-    <div class="line">
-      <span class="prompt">{{ defaultPrompt }}</span>
-      <span class="cmd-text"> {{ currentInput }}</span><span class="cursor" [class.blink]="!isTyping">█</span>
-    </div>
 
-    <!-- COMMAND HISTORY (REVERSED) -->
+  <!-- ② Suggestion pills — always at the TOP, right below the title bar -->
+  @if (suggestions.length) {
+    <div class="pill-bar">
+      <span class="pill-label">try →</span>
+      @for (s of suggestions; track s) {
+        <button class="pill" (click)="autoType(s); $event.stopPropagation()">{{ s }}</button>
+      }
+    </div>
+  }
+
+  <!-- ③ Terminal body — history accumulates downward, prompt at bottom -->
+  <div class="term-body interactive-term" #termBody (click)="focus()">
+
     @for (entry of history; track $index) {
       @if (entry.type === 'input') {
         <div class="line">
-          <span class="prompt">{{ defaultPrompt }}</span>
+          <span class="prompt">{{ prompt }}</span>
           <span class="cmd-text"> {{ entry.text }}</span>
         </div>
       } @else {
-        <div class="out" [class.err]="entry.isError">
+        <div class="out-block" [class.err]="entry.isError">
           @for (line of entry.lines!; track $index) {
-            <div>{{ line || ' ' }}</div>
+            <div class="out-line">{{ line || ' ' }}</div>
           }
         </div>
       }
     }
 
-    <!-- DEFAULT PAGE CONTENT (PROJECTED) -->
-    @if (hasRunDefault || history.length === 0) {
-      <div class="default-content-wrapper" [style.marginTop.rem]="history.length ? 1.5 : 0">
-        <ng-content></ng-content>
-      </div>
-    }
+    <!-- Active input line always at the bottom -->
+    <div class="line active-line">
+      <span class="prompt">{{ prompt }}</span>
+      <span class="cmd-text"> {{ currentInput }}</span><span
+        class="cursor" [class.blink]="!isTyping">█</span>
+    </div>
 
     <input #termInput class="ghost"
       autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
       (keydown)="onKeydown($event)"
-      (blur)="isTyping ? null : focus()" />
+      (blur)="onBlur()" />
   </div>
+
 </div>

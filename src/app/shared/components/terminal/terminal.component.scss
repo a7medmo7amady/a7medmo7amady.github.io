@@ -1,39 +1,72 @@
-.interactive-term {
-  position: relative;
-  cursor: text;
-  min-height: 300px;
-  max-height: 60vh;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.1) transparent;
+/* ── Pill bar — sits between title bar and body ── */
+.pill-bar {
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 0.6rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
 
-  &::-webkit-scrollbar {
-    width: 6px;
+.pill-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  user-select: none;
+  margin-right: 0.2rem;
+}
+
+.pill {
+  background: rgba(50, 215, 75, 0.08);
+  border: 1px solid rgba(50, 215, 75, 0.22);
+  color: var(--accent);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  padding: 0.22rem 0.7rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  letter-spacing: 0.03em;
+
+  &:hover {
+    background: rgba(50, 215, 75, 0.18);
+    border-color: var(--accent);
   }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
+}
+
+/* ── Terminal body ── */
+.term-body {
+  background: transparent;
+  padding: 1.25rem 1.5rem 1.25rem;
+  min-height: 240px;
+  max-height: 55vh;
+  overflow-y: auto;
+  cursor: text;
+  font-family: 'Space Mono', monospace;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+
+  &::-webkit-scrollbar { width: 5px; }
+  &::-webkit-scrollbar-track { background: transparent; }
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 3px;
   }
 }
 
-.term-body {
-  background: transparent;
-  padding: 1.25rem 1.5rem 1rem;
-  color: var(--text);
-  font-family: 'Space Mono', monospace;
-}
-
+/* ── Lines ── */
 .line {
   display: flex;
   align-items: baseline;
-  font-size: 0.78rem;
-  line-height: 1.6;
+  font-size: 0.8rem;
+  line-height: 1.65;
   white-space: pre-wrap;
   word-break: break-all;
 }
+
+.active-line { margin-top: 0.15rem; }
 
 .prompt {
   color: var(--accent);
@@ -42,52 +75,47 @@
   user-select: none;
 }
 
-.cmd-text {
-  color: var(--text);
-  margin-left: 0.4rem;
+.cmd-text { color: var(--text); }
+
+.out-block {
+  margin: 0.15rem 0 0.75rem;
 }
 
+.out-line {
+  color: var(--text);
+  font-size: 0.78rem;
+  line-height: 1.65;
+  white-space: pre;
+  opacity: 0.9;
+}
+
+.err .out-line { color: #ff5f57; opacity: 1; }
+
+/* ── Cursor ── */
 .cursor {
   display: inline-block;
-  width: 0.6em;
-  background: currentColor;
-  opacity: 0.7;
+  width: 0.55em;
+  background: var(--accent);
+  opacity: 0.85;
   vertical-align: text-bottom;
   margin-left: 1px;
+  line-height: 1;
+  font-size: 0.8rem;
 
-  &.blink {
-    animation: blink-block 1.2s step-end infinite;
-  }
+  &.blink { animation: blink-cur 1.2s step-end infinite; }
 }
 
-@keyframes blink-block {
-  0%, 100% { opacity: 0.7; }
+@keyframes blink-cur {
+  0%, 100% { opacity: 0.85; }
   50%       { opacity: 0; }
 }
 
-.out {
-  color: var(--text);
-  font-size: 0.76rem;
-  line-height: 1.65;
-  white-space: pre;
-  margin-top: 0.2rem;
-  margin-bottom: 1rem;
-}
-
-.err {
-  color: #ff5f57;
-}
-
+/* ── Hidden input capture ── */
 .ghost {
   position: absolute;
   opacity: 0;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
+  top: 0; left: 0;
+  width: 1px; height: 1px;
+  pointer-events: none;
   z-index: -1;
-}
-
-.default-content-wrapper {
-  /* No special styles needed, just a container for projected content */
 }

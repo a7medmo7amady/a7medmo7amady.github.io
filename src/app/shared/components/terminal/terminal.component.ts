@@ -1,4 +1,8 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, Input, HostListener } from '@angular/core';
+import {
+  Component, AfterViewInit, ElementRef, ViewChild,
+  Input, HostListener, OnDestroy
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 export interface TermEntry {
   type: 'input' | 'output';
@@ -10,13 +14,15 @@ export interface TermEntry {
 @Component({
   selector: 'app-terminal',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './terminal.component.html',
   styleUrl: './terminal.component.scss'
 })
-export class TerminalComponent implements AfterViewInit {
-  @Input() title: string = '~';
-  @Input() defaultPrompt: string = 'ahmad@portfolio:~$';
-  @Input() defaultCommand: string = '';
+export class TerminalComponent implements AfterViewInit, OnDestroy {
+  @Input() title = '~';
+  @Input() prompt = 'ahmad@portfolio:~$';
+  @Input() defaultCommand = '';
+  @Input() suggestions: string[] = [];
   @Input() processCommand!: (cmd: string) => { lines: string[]; isError?: boolean } | null;
 
   @ViewChild('termInput') inputRef!: ElementRef<HTMLInputElement>;
@@ -27,14 +33,19 @@ export class TerminalComponent implements AfterViewInit {
   isTyping = false;
   cmdHistory: string[] = [];
   historyIdx = -1;
-  hasRunDefault = false;
+
+  private blurTimer: any;
 
   ngAfterViewInit() {
     if (this.defaultCommand) {
-      setTimeout(() => this.autoType(this.defaultCommand), 150);
+      setTimeout(() => this.autoType(this.defaultCommand), 300);
     } else {
-      setTimeout(() => this.focus(), 120);
+      setTimeout(() => this.focus(), 100);
     }
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.blurTimer);
   }
 
   focus() {
@@ -42,9 +53,7 @@ export class TerminalComponent implements AfterViewInit {
   }
 
   @HostListener('click')
-  onHostClick() {
-    this.focus();
-  }
+  onHostClick() { this.focus(); }
 
   onKeydown(e: KeyboardEvent) {
     if (this.isTyping) { e.preventDefault(); return; }
@@ -57,6 +66,10 @@ export class TerminalComponent implements AfterViewInit {
       case 'Backspace':
         e.preventDefault();
         this.currentInput = this.currentInput.slice(0, -1);
+        break;
+      case 'Tab':
+        e.preventDefault();
+        this.tabComplete();
         break;
       case 'ArrowUp':
         e.preventDefault();
@@ -74,6 +87,14 @@ export class TerminalComponent implements AfterViewInit {
     }
   }
 
+  onBlur() {
+    this.blurTimer = setTimeout(() => {
+      if (document.activeElement !== this.inputRef?.nativeElement) {
+        // allow blur — don't auto-refocus after leaving terminal
+      }
+    }, 200);
+  }
+
   autoType(cmd: string) {
     if (this.isTyping) return;
     this.isTyping = true;
@@ -82,45 +103,47 @@ export class TerminalComponent implements AfterViewInit {
     const tick = () => {
       if (i < cmd.length) {
         this.currentInput += cmd[i++];
-        setTimeout(tick, 50);
+        setTimeout(tick, 48);
       } else {
-        setTimeout(() => { 
-          this.isTyping = false; 
-          this.run(cmd, true); 
-        }, 300);
+        setTimeout(() => { this.isTyping = false; this.run(cmd); }, 280);
       }
     };
     tick();
   }
 
-  private run(cmd: string, isDefault = false) {
+  private tabComplete() {
+    if (!this.currentInput.trim()) return;
+    const match = this.suggestions.find(s => s.startsWith(this.currentInput) && s !== this.currentInput);
+    if (match) this.currentInput = match;
+  }
+
+  run(cmd: string) {
     const raw = cmd.trim();
     this.currentInput = '';
     this.historyIdx = -1;
-    
-    let res: { lines: string[]; isError?: boolean } | null = null;
-    if (raw && this.processCommand) {
-      this.cmdHistory.unshift(raw);
-      res = this.processCommand(raw);
-    } else if (raw) {
-       this.cmdHistory.unshift(raw);
-       res = { lines: [`${raw.split(/\s+/)[0]}: command not found`], isError: true };
+
+    if (!raw) return;
+
+    this.cmdHistory.unshift(raw);
+    this.history.push({ type: 'input', text: raw });
+
+    if (raw === 'clear') {
+      this.history = [];
+      setTimeout(() => this.scrollBottom(), 40);
+      return;
     }
 
-    if (raw === 'clear' || (res === null && raw)) {
-       this.history = [];
-       if (isDefault) this.hasRunDefault = true;
-       return;
-    }
+    const res = this.processCommand
+      ? this.processCommand(raw)
+      : { lines: [`${raw.split(/\s+/)[0]}: command not found`], isError: true };
 
-    // Unshift the output first, then the input, so that the input is above the output.
-    if (res) {
-       this.history.unshift({ type: 'output', lines: res.lines, isError: res.isError });
-    }
-    this.history.unshift({ type: 'input', text: raw });
+    if (res) this.history.push({ type: 'output', lines: res.lines, isError: res.isError });
 
-    if (isDefault) {
-      this.hasRunDefault = true;
-    }
+    setTimeout(() => this.scrollBottom(), 40);
+  }
+
+  private scrollBottom() {
+    const el = this.bodyRef?.nativeElement;
+    if (el) el.scrollTop = el.scrollHeight;
   }
 }

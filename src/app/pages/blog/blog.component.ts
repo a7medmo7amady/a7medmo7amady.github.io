@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { TerminalComponent } from '../../shared/components/terminal/terminal.component';
 
 @Component({
@@ -9,13 +9,9 @@ import { TerminalComponent } from '../../shared/components/terminal/terminal.com
 })
 export class BlogComponent implements AfterViewInit {
   @ViewChildren('reveal') revealEls!: QueryList<ElementRef>;
-  @ViewChild(TerminalComponent) term!: TerminalComponent;
 
-  suggestions = ['help', 'ls', 'whoami', 'cat adas.md', 'cat webserver.md', 'cat oss.md', 'cat go-vs-c.md', 'clear'];
-
-  autoType(s: string) {
-    if (this.term) this.term.autoType(s);
-  }
+  suggestions = ['ls', 'help', 'whoami', 'cat adas.md', 'cat webserver.md', 'cat oss.md', 'cat go-vs-c.md', 'clear'];
+  defaultCommand = 'ls';
 
   private posts: Record<string, { title: string; date: string; lines: string[] }> = {
     'adas.md': {

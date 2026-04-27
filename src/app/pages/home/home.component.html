@@ -26,15 +26,12 @@
   </div>
 
   <div class="reveal delay-5" #reveal>
-    <app-terminal title="~" defaultCommand="./show_highlights.sh" [processCommand]="processCommand.bind(this)">
-      <div class="cards">
-        @for (card of cards; track card.title; let i = $index) {
-          <div class="card reveal" #reveal [style.transition-delay]="(i * 0.1 + 0.2) + 's'">
-            <h3>{{ card.title }}</h3>
-            <p>{{ card.text }}</p>
-          </div>
-        }
-      </div>
-    </app-terminal>
+    <app-terminal
+      title="~/"
+      prompt="ahmad@portfolio:~$"
+      [defaultCommand]="defaultCommand"
+      [suggestions]="suggestions"
+      [processCommand]="processCommand.bind(this)"
+    />
   </div>
 </div>
