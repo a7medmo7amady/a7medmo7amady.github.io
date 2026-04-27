@@ -1,0 +1,53 @@
+<div class="section page-enter">
+  <p class="eyebrow">Writing</p>
+  <h1 class="section-title">Blog</h1>
+  <p class="section-sub">Notes from the terminal</p>
+
+  <div class="terminal-wrap">
+    <div class="term-bar">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+      <span class="term-title">ahmad&#64;portfolio:~/blog</span>
+    </div>
+
+    <div class="term-body">
+      <div class="line">
+        <span class="prompt">ahmad&#64;portfolio:~/blog$</span>
+        <span class="cmd"> ls -la</span>
+      </div>
+      <div class="output" style="margin-bottom:1.25rem">
+        @for (post of posts; track post.cmd; let i = $index) {
+          <div>{{ post.date }}&nbsp;&nbsp;{{ post.cmd.replace('cat ', '').replace('.md','') }}</div>
+        }
+      </div>
+
+      @for (post of posts; track post.cmd; let i = $index) {
+        <div class="entry">
+          <div class="line clickable" (click)="toggle(i)">
+            <span class="prompt">ahmad&#64;portfolio:~/blog$</span>
+            <span class="cmd"> {{ post.cmd }}</span>
+            <span class="chevron">{{ active === i ? '▾' : '▸' }}</span>
+          </div>
+
+          @if (active === i) {
+            <div class="post-out">
+              <div class="post-meta">## {{ post.title }}</div>
+              <div class="post-meta dim">## {{ post.date }}</div>
+              <div class="spacer"></div>
+              @for (line of post.lines; track $index) {
+                <div class="output-line">{{ line || '&nbsp;' }}</div>
+              }
+              <div class="spacer"></div>
+            </div>
+          }
+        </div>
+      }
+
+      <div class="line">
+        <span class="prompt">ahmad&#64;portfolio:~/blog$</span>
+        <span class="cursor">█</span>
+      </div>
+    </div>
+  </div>
+</div>

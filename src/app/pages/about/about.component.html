@@ -1,22 +1,21 @@
 <div class="section page-enter">
-  <h1 class="section-title reveal" #reveal>About <span class="gradient-text">Me</span></h1>
-  <p class="section-sub reveal delay-1" #reveal>A little bit about who I am</p>
+  <p class="eyebrow reveal" #reveal>Who I Am</p>
+  <h1 class="section-title reveal delay-1" #reveal>About</h1>
 
-  <div class="bio-card card reveal delay-2" #reveal>
-    <h2>Who I Am</h2>
+  <div class="bio reveal delay-2" #reveal>
     <p>
-      <!-- Add your bio here -->
-      I'm Ahmad Muhammadi, a Computer Science student who loves building software.
-      I enjoy working close to the metal as much as I enjoy building for the web.
+      I'm Ahmad Muhammadi — a Computer Science student who builds close to the metal
+      and for the web. I care about how things work underneath.
+    </p>
+    <p>
+      Currently exploring systems programming, compilers, and open-source contribution.
+      I write C and Go for fun, and ship full-stack projects to learn everything else.
     </p>
   </div>
 
-  <div class="cards">
-    @for (card of cards; track card.title; let i = $index) {
-      <div class="card reveal" #reveal [style.transition-delay]="(i * 0.1 + 0.3) + 's'">
-        <h3>{{ card.title }}</h3>
-        <p>{{ card.text }}</p>
-      </div>
-    }
+  <div class="facts reveal delay-3" #reveal>
+    <div class="fact"><span class="label">Focus</span><span>Systems · Web · OSS</span></div>
+    <div class="fact"><span class="label">Stack</span><span>C · Go · Python · TypeScript</span></div>
+    <div class="fact"><span class="label">Status</span><span>CS Student, open to opportunities</span></div>
   </div>
 </div>
