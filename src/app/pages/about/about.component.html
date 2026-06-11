@@ -1,17 +1,39 @@
 <div class="section page-enter">
-  <div class="page-hello"><span class="ph-prompt">&gt;</span><span class="ph-text">hello, here's who I am</span><span class="ph-cursor"></span></div>
-
   <p class="eyebrow reveal" #reveal>Who I Am</p>
   <h1 class="section-title reveal delay-1" #reveal>About</h1>
-  <p class="section-sub reveal delay-2" #reveal>Background and focus</p>
 
-  <div class="reveal delay-3" #reveal>
-    <app-terminal
-      title="~/about"
-      prompt="ahmad@about:~$"
-      [defaultCommand]="defaultCommand"
-      [suggestions]="suggestions"
-      [processCommand]="processCommand.bind(this)"
-    />
+  <div class="about-body reveal delay-2" #reveal>
+    <p>
+      I'm Ahmad Muhammadi — a Computer Science student who loves building things.
+      My main interests are <strong>compilers</strong>, <strong>open-source database internals</strong>,
+      <strong>full-stack web development</strong>, and <strong>competitive programming</strong>.
+    </p>
+    <p>
+      I write Go, C, Java, Rust, and JS/TS. On the web side I work with Spring Boot,
+      Gin, Next.js, and React. I like understanding how things work at a low level —
+      from memory allocators to query planners.
+    </p>
+    <p>
+      Currently an undergraduate CS student, open to internships and interesting projects.
+    </p>
+  </div>
+
+  <div class="about-grid reveal delay-3" #reveal>
+    <div class="card">
+      <h3>Education</h3>
+      <p>B.Sc. Computer Science — Undergraduate, in progress.<br>Focus: Systems · Algorithms · Networks</p>
+    </div>
+    <div class="card">
+      <h3>Languages</h3>
+      <p>Go · C · Java · Rust · TypeScript / JavaScript · Python</p>
+    </div>
+    <div class="card">
+      <h3>Frameworks</h3>
+      <p>Spring Boot · Gin · Next.js · React · Angular · Node.js</p>
+    </div>
+    <div class="card">
+      <h3>Tools</h3>
+      <p>Git · Linux · Docker · PostgreSQL · GDB · Vim</p>
+    </div>
   </div>
 </div>

@@ -1,37 +1,51 @@
 <div class="section page-enter">
-  <div class="page-hello"><span class="ph-prompt">&gt;</span><span class="ph-text">hello, welcome</span><span class="ph-cursor"></span></div>
-
   <div class="hero">
     <div class="hero-text">
-      <p class="greeting reveal" #reveal>Open Source · Systems · Web</p>
+      <p class="greeting reveal" #reveal>CS Student & Software Engineer</p>
       <h1 class="reveal delay-1" #reveal>
         Ahmad<br><span class="name-accent">Muhammadi</span>
       </h1>
-      <p class="subtitle reveal delay-2" #reveal>Software Engineer</p>
-      <p class="bio reveal delay-3" #reveal>
-        I build things close to the metal and for the web —
-        systems programming, networking, and full-stack development.
+      <p class="bio reveal delay-2" #reveal>
+        I build things close to the metal and for the web. My interests are
+        <strong>compilers</strong>, <strong>open-source databases</strong>,
+        <strong>full-stack web</strong>, and <strong>competitive programming</strong>.
+        I write Go, C, Java, Rust, and JS/TS — and ship web apps with
+        Spring Boot, Gin, Next.js, and React.
       </p>
+      <div class="lang-bar reveal delay-3" #reveal>
+        <span class="lang">Go</span>
+        <span class="lang">C</span>
+        <span class="lang">Java</span>
+        <span class="lang">Rust</span>
+        <span class="lang">JS / TS</span>
+      </div>
       <div class="cta reveal delay-4" #reveal>
         <a routerLink="/projects" class="btn primary">View My Work →</a>
         <a routerLink="/contact" class="btn outline">Get In Touch</a>
       </div>
     </div>
-
-    <div class="hero-image reveal delay-2" #reveal>
-      <div class="avatar-ring">
-        <img src="/Me.jpeg" alt="Ahmad Muhammadi" />
-      </div>
-    </div>
   </div>
 
-  <div class="reveal delay-5" #reveal>
-    <app-terminal
-      title="~/"
-      prompt="ahmad@portfolio:~$"
-      [defaultCommand]="defaultCommand"
-      [suggestions]="suggestions"
-      [processCommand]="processCommand.bind(this)"
-    />
+  <div class="focus-grid reveal delay-5" #reveal>
+    <div class="card">
+      <div class="card-icon">⚙</div>
+      <h3>Compilers</h3>
+      <p>Lexers, parsers, IRs, and code generation — I'm fascinated by how languages work under the hood.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🗄</div>
+      <h3>OSS Databases</h3>
+      <p>Storage engines, query planners, MVCC — studying and building on open-source database internals.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <h3>Web</h3>
+      <p>Full-stack apps with Spring Boot, Gin, Next.js, and React. I care about both correctness and UX.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>Competitive Programming</h3>
+      <p>Algorithms and data structures keep me sharp. Daily problem-solving is part of the routine.</p>
+    </div>
   </div>
 </div>

@@ -1,17 +1,66 @@
 <div class="section page-enter">
-  <div class="page-hello"><span class="ph-prompt">&gt;</span><span class="ph-text">hello, let's talk</span><span class="ph-cursor"></span></div>
-
   <p class="eyebrow reveal" #reveal>Contact</p>
   <h1 class="section-title reveal delay-1" #reveal>Get In <span class="gradient-text">Touch</span></h1>
-  <p class="section-sub reveal delay-2" #reveal>Feel free to reach out anytime</p>
+  <p class="section-sub reveal delay-2" #reveal>Open to internships, freelance, and interesting projects</p>
 
-  <div class="reveal delay-3" #reveal>
-    <app-terminal
-      title="~/contact"
-      prompt="ahmad@contact:~$"
-      [defaultCommand]="defaultCommand"
-      [suggestions]="suggestions"
-      [processCommand]="processCommand.bind(this)"
-    />
+  <div class="contact-list reveal delay-3" #reveal>
+    <a href="mailto:ahmedmohamady2005@gmail.com" class="contact-row">
+      <span class="contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      </span>
+      <div class="contact-info">
+        <span class="contact-label">Email</span>
+        <span class="contact-val">ahmedmohamady2005&#64;gmail.com</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a href="https://github.com/a7medmo7amady" target="_blank" rel="noopener" class="contact-row">
+      <span class="contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482
+            0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462
+            -.908-.62.069-.608.069-.608 1.003.07 1.531 1.031 1.531 1.031.892 1.53 2.341 1.088 2.91.832
+            .092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688
+            -.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844a9.59 9.59 0
+            012.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595
+            1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012
+            2.743 0 .267.18.578.688.48C19.138 20.2 22 16.447 22 12.021 22 6.484 17.523 2 12 2z"/>
+        </svg>
+      </span>
+      <div class="contact-info">
+        <span class="contact-label">GitHub</span>
+        <span class="contact-val">github.com/a7medmo7amady</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a href="https://wa.me/201030664169" target="_blank" rel="noopener" class="contact-row">
+      <span class="contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15
+            -.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475
+            -.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52
+            .149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207
+            -.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372
+            -.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2
+            5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719
+            2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.554 4.12 1.521 5.854L.057 23.882a.5.5 0
+            00.606.61l6.197-1.426A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0
+            21.818a9.79 9.79 0 01-5.012-1.376l-.36-.213-3.727.857.896-3.614-.234-.372A9.795 9.795 0
+            012.182 12c0-5.42 4.398-9.818 9.818-9.818 5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398
+            9.818-9.818 9.818z"/>
+        </svg>
+      </span>
+      <div class="contact-info">
+        <span class="contact-label">WhatsApp</span>
+        <span class="contact-val">+20 103 066 4169</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
   </div>
 </div>

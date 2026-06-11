@@ -1,27 +1,21 @@
 <div class="section page-enter">
-  <div class="page-hello"><span class="ph-prompt">&gt;</span><span class="ph-text">hello, here's my toolbox</span><span class="ph-cursor"></span></div>
-
   <p class="eyebrow reveal" #reveal>Toolbox</p>
   <h1 class="section-title reveal delay-1" #reveal>My <span class="gradient-text">Skills</span></h1>
   <p class="section-sub reveal delay-2" #reveal>Technologies I work with</p>
 
-  <div class="reveal delay-3" #reveal>
-    <app-terminal title="~/skills" defaultCommand="./list_skills.sh">
-      <div class="categories">
-        @for (cat of categories; track cat.title; let i = $index) {
-          <div class="category reveal" #reveal [style.transition-delay]="(i * 0.15 + 0.2) + 's'">
-            <h2>{{ cat.title }}</h2>
-            <div class="badges">
-              @for (skill of cat.skills; track skill.name) {
-                <div class="badge">
-                  <img [src]="skill.logo" [alt]="skill.name" loading="lazy" />
-                  <span>{{ skill.name }}</span>
-                </div>
-              }
+  <div class="categories">
+    @for (cat of categories; track cat.title; let i = $index) {
+      <div class="category reveal" #reveal [style.transition-delay]="(i * 0.15 + 0.3) + 's'">
+        <h2>{{ cat.title }}</h2>
+        <div class="badges">
+          @for (skill of cat.skills; track skill.name) {
+            <div class="badge">
+              <img [src]="skill.logo" [alt]="skill.name" loading="lazy" />
+              <span>{{ skill.name }}</span>
             </div>
-          </div>
-        }
+          }
+        </div>
       </div>
-    </app-terminal>
+    }
   </div>
 </div>
