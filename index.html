@@ -1,28 +1,60 @@
 <!doctype html>
-<html lang="en" data-beasties-container>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Ahmad Muhammadi</title>
-  <base href="/">
+  <title>Ahmed Mohammady</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Single Page Apps for GitHub Pages: decode the path that 404.html encoded -->
-  <script type="text/javascript">
-    (function (l) {
-      if (l.search[1] === '/') {
-        var decoded = l.search.slice(1).split('&').map(function (s) {
-          return s.replace(/~and~/g, '&');
-        }).join('?');
-        window.history.replaceState(null, null,
-          l.pathname.slice(0, -1) + decoded + l.hash);
-      }
-    }(window.location));
-  </script>
+  <meta name="description" content="Ahmed Mohammady — Computer Science @ Zewail City, Software Engineering Intern @ EFG Holding">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=Syne:wght@400;700;800&amp;display=swap" rel="stylesheet">
-<style>*,*:before,*:after{box-sizing:border-box;margin:0;padding:0}:root{--bg:#111113;--surface:#1c1c1f;--surface2:#242427;--border:rgba(255, 255, 255, .08);--border-hover:rgba(50, 215, 75, .35);--text:#efeff3;--muted:#8a8a96;--accent:#32d74b;--accent-dim:rgba(50, 215, 75, .1);--accent2:#248a34;--gray:#2a2a2e;--radius:10px;--radius-sm:6px;--transition:.2s ease}html{scroll-behavior:smooth}body{font-family:-apple-system,BlinkMacSystemFont,SF Pro Text,Helvetica Neue,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}</style><link rel="stylesheet" href="styles-RAIC33EI.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-RAIC33EI.css"></noscript></head>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/htmx.min.js"></script>
+</head>
 <body>
-  <app-root></app-root>
-<link rel="modulepreload" href="chunk-MEB5FY47.js"><link rel="modulepreload" href="chunk-J2F2EKUH.js"><link rel="modulepreload" href="chunk-XQJMUZSD.js"><script src="main-YSETCYUD.js" type="module"></script></body>
+  <div class="wrap">
+
+    <header class="hero">
+      <h1>Ahmed Mohammady</h1>
+      <p class="role">Computer Science @ <span class="hl">Zewail City of Science and Technology</span></p>
+      <p class="role">Software Engineering Intern @ <span class="hl">EFG Holding</span> — Cairo, Egypt</p>
+
+      <nav class="links">
+        <a href="mailto:ahmad.muhammadi.muhamad@gmail.com">email</a>
+        <a href="https://github.com/ahmadmuhamadi" target="_blank" rel="noopener">github</a>
+        <a href="https://linkedin.com/in/ahmed-mohammady-dev/" target="_blank" rel="noopener">linkedin</a>
+        <a href="https://x.com/goojossatoru" target="_blank" rel="noopener">x</a>
+        <a href="https://drive.google.com/file/d/10QPDU9pL0ZP64PvyuU_s-CkBTB1NDzrX/view?usp=drive_link" target="_blank" rel="noopener">resume</a>
+      </nav>
+    </header>
+
+    <section class="block">
+      <div class="prompt-row"><span class="cmd">$</span> whoami</div>
+      <div class="body" hx-get="fragments/whoami.html" hx-trigger="revealed" hx-swap="innerHTML"></div>
+    </section>
+
+    <section class="block">
+      <div class="prompt-row"><span class="cmd">$</span> cat experience.txt</div>
+      <div class="body" hx-get="fragments/experience.html" hx-trigger="revealed" hx-swap="innerHTML"></div>
+    </section>
+
+    <section class="block">
+      <div class="prompt-row"><span class="cmd">$</span> ls projects/</div>
+      <div class="body" hx-get="fragments/projects.html" hx-trigger="revealed" hx-swap="innerHTML"></div>
+    </section>
+
+    <section class="block">
+      <div class="prompt-row"><span class="cmd">$</span> ls leadership/</div>
+      <div class="body" hx-get="fragments/leadership.html" hx-trigger="revealed" hx-swap="innerHTML"></div>
+    </section>
+
+    <section class="block">
+      <div class="prompt-row"><span class="cmd">$</span> ls socials/</div>
+      <div class="body" hx-get="fragments/socials.html" hx-trigger="revealed" hx-swap="innerHTML"></div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Ahmed Mohammady. Built with htmx.</p>
+    </footer>
+
+  </div>
+</body>
 </html>

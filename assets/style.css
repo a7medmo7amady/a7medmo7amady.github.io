@@ -1,0 +1,247 @@
+/* ---------------------------------------------------------
+   Ahmed Mohammady — terminal portfolio
+--------------------------------------------------------- */
+
+:root {
+  --bg: #2b2b2c;
+  --bg-soft: #313133;
+  --border: #454547;
+  --white: #f2f2f2;
+  --muted: #a8a8ab;
+  --green: #3ddc84;
+  --green-bright: #58f29a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 20px 120px;
+}
+
+/* ---------- header ---------- */
+
+header.hero {
+  margin-bottom: 56px;
+}
+
+header.hero h1 {
+  margin: 0 0 6px;
+  font-size: 1.9rem;
+  color: var(--white);
+  letter-spacing: 0.5px;
+}
+
+header.hero .role {
+  color: var(--muted);
+  margin: 2px 0;
+  font-size: 0.98rem;
+}
+
+header.hero .role .hl {
+  color: var(--green);
+}
+
+.links {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+
+.links a {
+  color: var(--green);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.links a:hover {
+  border-bottom-color: var(--green);
+  color: var(--green-bright);
+}
+
+/* ---------- terminal blocks ---------- */
+
+.block {
+  margin-bottom: 44px;
+}
+
+.block .prompt-row {
+  color: var(--green);
+  font-weight: bold;
+  margin-bottom: 12px;
+  opacity: 0;
+  transform: translateY(4px);
+  animation: reveal 0.4s ease forwards;
+}
+
+.block .prompt-row .cmd {
+  color: var(--green-bright);
+}
+
+.block .body {
+  color: var(--white);
+}
+
+/* lines fetched into a block are revealed one-by-one, 1s apart */
+.block .body > * {
+  opacity: 0;
+  transform: translateY(4px);
+  animation: reveal 0.4s ease forwards;
+}
+
+.block .body > *:nth-child(1) { animation-delay: 1s; }
+.block .body > *:nth-child(2) { animation-delay: 2s; }
+.block .body > *:nth-child(3) { animation-delay: 3s; }
+.block .body > *:nth-child(4) { animation-delay: 4s; }
+.block .body > *:nth-child(5) { animation-delay: 5s; }
+.block .body > *:nth-child(6) { animation-delay: 6s; }
+.block .body > *:nth-child(7) { animation-delay: 7s; }
+.block .body > *:nth-child(8) { animation-delay: 8s; }
+.block .body > *:nth-child(9) { animation-delay: 9s; }
+.block .body > *:nth-child(10) { animation-delay: 10s; }
+.block .body > *:nth-child(11) { animation-delay: 11s; }
+.block .body > *:nth-child(12) { animation-delay: 12s; }
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hl {
+  color: var(--green);
+}
+
+p {
+  margin: 0 0 14px;
+  color: var(--white);
+}
+
+/* ---------- experience / leadership entries ---------- */
+
+.entry {
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.entry:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.entry .title {
+  color: var(--green);
+  font-weight: bold;
+}
+
+.entry .org {
+  color: var(--white);
+}
+
+.entry .meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- projects ---------- */
+
+.project {
+  margin-bottom: 22px;
+  padding: 14px 16px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.project:last-child {
+  margin-bottom: 0;
+}
+
+.project .name {
+  color: var(--green);
+  font-weight: bold;
+}
+
+.project .stack {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 4px 0 8px;
+}
+
+.project .desc {
+  color: var(--white);
+  margin: 0 0 8px;
+}
+
+.project .proj-links a {
+  color: var(--green);
+  margin-right: 16px;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.project .proj-links a:hover {
+  border-bottom-color: var(--green);
+}
+
+/* ---------- socials ---------- */
+
+.social-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.social-row .platform {
+  color: var(--green);
+  min-width: 90px;
+}
+
+.social-row a {
+  color: var(--white);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+
+.social-row a:hover {
+  color: var(--green);
+  border-bottom-color: var(--green);
+}
+
+/* ---------- footer ---------- */
+
+footer {
+  margin-top: 60px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .wrap {
+    padding: 32px 16px 80px;
+  }
+  header.hero h1 {
+    font-size: 1.5rem;
+  }
+}
